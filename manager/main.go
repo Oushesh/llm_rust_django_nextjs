@@ -6,6 +6,13 @@ import (
 	"net/http"
 )
 
+type Article struct {
+	Title   string "json:Title"
+	Desc    string "json:"
+	Content string "json:content"
+}
+type Articles []Article
+
 func handlePage(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Homepage Endpoint hit") // Use fmt.Fprint instead of fmt.Fprintf
 }

@@ -12,3 +12,9 @@ Go mostly for the heavy lifting.
 
 ## Features to be added: 
    * OCR pdf --> send to Go Backend run llm.
+   * Check projects for Retrieval Augmented Information.
+   * Implementation Retrieval Augmented Generation.
+     T4 GPU
+
+## The Halucination can also be reduced using this here: 
+https://colab.research.google.com/drive/1AXccYmC11kWJ8zZtqS78ZvmBCC7yIPI0#scrollTo=yjs-uPXBrnQs

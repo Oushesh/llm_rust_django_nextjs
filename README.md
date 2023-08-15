@@ -9,4 +9,6 @@ Go mostly for the heavy lifting.
 ## Backend:
    * llm_backend
     django-admin startproject llm_backend
-    
+
+## Features to be added: 
+   * OCR pdf --> send to Go Backend run llm.

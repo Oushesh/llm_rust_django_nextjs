@@ -1,2 +1,3 @@
 #Stuffs to ignore
 .idea/*
+.env

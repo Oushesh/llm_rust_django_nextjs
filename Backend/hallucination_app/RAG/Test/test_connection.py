@@ -29,6 +29,8 @@ filepath = os.path.join(base_dir,filename)
 loader = CSVLoader(filepath)
 print (loader)
 
+#Goal: Build a personal agent from LLMAAPI, path of data
+
 agent = create_csv_agent(
     OpenAI(temperature=0),
     filepath,

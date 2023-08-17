@@ -147,3 +147,5 @@ if __name__ == "__main__":
     print (filepath)
     CSV_Loader(filename="data.csv",delimiter=",",encoding="utf-8").lazy_csv_loader(filename)
 
+
+#Finish this code

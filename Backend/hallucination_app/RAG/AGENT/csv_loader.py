@@ -5,7 +5,6 @@ from langchain.schema import Document
 import os
 import pandas as pd
 
-
 class CSV_Loader:
     def __init__(self,**kwargs):
         self.filepath = kwargs.get('filepath',None) #kwargs['filename']

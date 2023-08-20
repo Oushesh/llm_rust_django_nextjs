@@ -5,6 +5,8 @@ implementations.
 from abc import ABC, abstractmethod
 from typing import Iterator, List, Optional
 
+import Backend
+from Backend.hallucination_app.schema.document import Document
 
 class BaseLoader(ABC):
     """

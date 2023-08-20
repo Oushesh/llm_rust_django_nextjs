@@ -2,11 +2,11 @@ from __future__ import annotations
 from pydantic import Field
 from abc import ABC, abstractmethod
 from typing import Any, Sequence
-from INGESTION.Serializable import Serializable
+import Backend
+from Backend.hallucination_app.INGESTION.Serializable import Serializable
 
 class Document(Serializable):
     """Class for storing a piece of text and associated metadata."""
-
     page_content: str
     """String text."""
     metadata: dict = Field(default_factory=dict)
@@ -18,7 +18,8 @@ class Document(Serializable):
 class BaseDocumentTransformer(ABC):
     """
     Abstract base class for document transformation
-    systems. A document transformation system takes
+    systems.
+    A document transformation system takes
     a sequence of Documents and returns a sequence
     of transformed Documents.
     """

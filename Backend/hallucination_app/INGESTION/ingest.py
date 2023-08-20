@@ -4,3 +4,5 @@ documents for retrieval augmented
 generation to counter hallucination
 process of legal documents.
 """
+import os
+import glob

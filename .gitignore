@@ -1,3 +1,4 @@
 #Stuffs to ignore
 .idea/*
 .env
+.DS_Store/*

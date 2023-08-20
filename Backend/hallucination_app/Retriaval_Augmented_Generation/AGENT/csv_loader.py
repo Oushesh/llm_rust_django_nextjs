@@ -11,8 +11,6 @@ class CSV_Loader:
         self.delimiter = kwargs.get('delimiter',None)
         self.encoding = kwargs.get('encoding',None)
 
-    #Pass all the other names here if needed.
-
     def csv_loader(self):
         df = pd.read_csv(self.filepath)
         return df.values.tolist()
@@ -35,4 +33,3 @@ if __name__ == "__main__":
 
     for row in loader.lazy_csv_loader():
         print (row)
-

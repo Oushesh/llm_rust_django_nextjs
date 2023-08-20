@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from langchain import OpenAI
 from langchain.document_loaders.csv_loader import CSVLoader
 from langchain.agents.agent_types import AgentType
-#from Backend.hallucination_app.RAG.DATA
+#from Backend.hallucination_app.Retriaval_Augmented_Generation.DATA
 
 load_dotenv() #load_dotenv to load all .env variables
 

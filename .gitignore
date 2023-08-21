@@ -2,3 +2,5 @@
 .idea/*
 .env
 .DS_Store/*
+.pdf
+Backend/ollama_venv/*

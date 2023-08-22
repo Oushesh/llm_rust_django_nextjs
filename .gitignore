@@ -4,3 +4,4 @@
 .DS_Store/*
 .pdf
 Backend/ollama_venv/*
+Backend/.DS_Store/*

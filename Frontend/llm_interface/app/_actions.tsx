@@ -1,36 +1,40 @@
-'use server'
 import cloudinary from 'cloudinary';
 
-//move to .env in the future
-const cloudinaryConfig  = cloudinary.config({
-        cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUDNAME,
-        api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
-        api_secret: process.env.CLOUDINARY_API_SECRET,
-        secure: true
-    }
-)
+// Configure Cloudinary
+cloudinary.v2.config({
+  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUDNAME,
+  api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true,
+});
 
-export async function getSignature()
-{
-    const timestamp = cloudinary.utils.api_sign_request(
-        {
-            timestamp, folder: 'next'
-        },
-        cloudinaryConfig.api_secret
-    )
-    return { timestamp, signature}
+// Save the api_secret in a separate variable
+const apiSecret = cloudinary.v2.config().api_secret;
+
+export async function getSignature() {
+  const timestamp = Math.floor(Date.now() / 1000); // Use seconds since epoch
+  const folder = 'next';
+
+  const signature = cloudinary.utils.api_sign_request(
+    {
+      timestamp,
+      folder,
+    },
+    apiSecret
+  );
+
+  return { timestamp, signature };
 }
 
 export async function saveToDatabase({ public_id, version, signature }) {
-    // verify the data
-    const expectedSignature = cloudinary.utils.api_sign_request(
-        { public_id, version },
-        cloudinaryConfig.api_secret
-    )
+  // Verify the data
+  const expectedSignature = cloudinary.utils.api_sign_request(
+    { public_id, version },
+    apiSecret
+  );
 
-    if (expectedSignature === signature) {
-        // safe to write to database
-        console.log({ public_id })
-    }
+  if (expectedSignature === signature) {
+    // Safe to write to the database
+    console.log({ public_id });
+  }
 }
-

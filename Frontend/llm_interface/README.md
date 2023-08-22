@@ -37,7 +37,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
    npm install @heroicons/react
    npm install react-dropzone
    npm install cloudinary-react
-
+   npm install cloudinary
+   
    if on yarn:
    yarn add @heroicons/react
    yarn add react-dropzone

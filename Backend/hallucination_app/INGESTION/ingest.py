@@ -32,7 +32,6 @@ embeddings_model_name = os.environ.get("EMBEDDINGS_MODEL_NAME", "all-MiniLM-L6-v
 chunk_size = 500
 chunk_overlap = 50
 
-
 # Custom document loaders
 class MyElmLoader(UnstructuredEmailLoader):
     """Wrapper to fallback to text/plain when default does not work"""

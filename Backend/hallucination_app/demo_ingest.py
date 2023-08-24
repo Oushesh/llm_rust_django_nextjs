@@ -7,19 +7,25 @@ from tqdm import tqdm
 
 from langchain.document_loaders import (
     CSVLoader,
-    EverNoteLoader,
-    PyMuPDFLoader,
-    TextLoader,
-    UnstructuredEmailLoader,
-    UnstructuredEPubLoader,
-    UnstructuredHTMLLoader,
-    UnstructuredMarkdownLoader,
-    UnstructuredODTLoader,
-    UnstructuredPowerPointLoader,
-    UnstructuredWordDocumentLoader,
 )
 
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+import os, sys
+
+# Get the absolute path of the current script
+current_script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Calculate the project root directory (three levels up from loaders.py)
+project_root = os.path.abspath(os.path.join(current_script_dir, "../"))
+print("project_root", project_root)
+
+# Add the project root to PYTHONPATH
+sys.path.append(project_root)
+
+from hallucination_app.PREPROCESSING.preprocessor import (
+    RecursiveCharacterTextSplitter,
+)
+
+# from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Chroma
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.docstore.document import Document
@@ -37,19 +43,6 @@ chunk_overlap = 50
 # Map file extensions to document loaders and their arguments
 LOADER_MAPPING = {
     ".csv": (CSVLoader, {}),
-    # ".docx": (Docx2txtLoader, {}),
-    ".doc": (UnstructuredWordDocumentLoader, {}),
-    ".docx": (UnstructuredWordDocumentLoader, {}),
-    ".enex": (EverNoteLoader, {}),
-    ".eml": (Data_loader, {}),
-    ".epub": (UnstructuredEPubLoader, {}),
-    ".html": (UnstructuredHTMLLoader, {}),
-    ".md": (UnstructuredMarkdownLoader, {}),
-    ".odt": (UnstructuredODTLoader, {}),
-    ".pdf": (PyMuPDFLoader, {}),
-    ".ppt": (UnstructuredPowerPointLoader, {}),
-    ".pptx": (UnstructuredPowerPointLoader, {}),
-    ".txt": (TextLoader, {"encoding": "utf8"}),
     # Add more mappings for other file extensions and loaders as needed
 }
 

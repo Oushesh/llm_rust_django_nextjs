@@ -19,6 +19,22 @@ from typing import (
 import copy
 import logging
 import collections
+
+
+import sys
+import os
+
+# Get the absolute path of the current script
+current_script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Calculate the project root directory (three levels up from loaders.py)
+project_root = os.path.abspath(os.path.join(current_script_dir, "../../../"))
+print("preprocessor project_root", project_root)
+
+# Add the project root to PYTHONPATH
+sys.path.append(project_root)
+
+
 from Backend.hallucination_app.schema.document import BaseDocumentTransformer, Document
 
 logger = logging.getLogger(__name__)

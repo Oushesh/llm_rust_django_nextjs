@@ -1,6 +1,5 @@
 import os, sys
 from ninja import Router
-from hallucination_app.schemas.file import InputFileIN
 
 import glob
 from typing import List
@@ -15,13 +14,11 @@ current_script_dir = os.path.dirname(os.path.abspath(__file__))
 # Calculate the project root directory (three levels up from loaders.py)
 project_root = os.path.abspath(os.path.join(current_script_dir, "../../../../"))
 
-
 # Add the project root to PYTHONPATH
 sys.path.append(project_root)
 
 print("project_root", project_root)
 
-"""
 from hallucination_app.PREPROCESSING.preprocessor import (
     RecursiveCharacterTextSplitter,
 )
@@ -31,7 +28,6 @@ from hallucination_app.schema.document import Document
 
 from langchain.vectorstores import Chroma
 from langchain.embeddings import HuggingFaceEmbeddings
-
 from constants import CHROMA_SETTINGS
 
 # Load environment variables
@@ -58,9 +54,9 @@ def load_single_document(file_path: str) -> List[Document]:
 
 
 def load_documents(source_dir: str, ignored_files: List[str] = []) -> List[Document]:
-    
+    """
     Loads all documents from the source documents directory, ignoring specified files
-    
+    """
     all_files = []
     for ext in LOADER_MAPPING:
         all_files.extend(
@@ -85,9 +81,9 @@ def load_documents(source_dir: str, ignored_files: List[str] = []) -> List[Docum
 
 
 def process_documents(ignored_files: List[str] = []) -> List[Document]:
-    
+    """
     Load documents and split in chunks
-    
+    """
     print(f"Loading documents from {source_directory}")
     documents = load_documents(source_directory, ignored_files)
     if not documents:
@@ -103,9 +99,9 @@ def process_documents(ignored_files: List[str] = []) -> List[Document]:
 
 
 def does_vectorstore_exist(persist_directory: str) -> bool:
-    
+    """
     Checks if vectorstore exists
-    
+    """
     if os.path.exists(os.path.join(persist_directory, "index")):
         if os.path.exists(
             os.path.join(persist_directory, "chroma-collections.parquet")
@@ -158,4 +154,3 @@ def ingest():
     return {
         "Success": "ingestion Complete! You can now run the GPT to query your documents"
     }
-"""

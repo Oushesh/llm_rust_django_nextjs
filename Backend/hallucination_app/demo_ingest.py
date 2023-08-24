@@ -1,9 +1,7 @@
-#!/usr/bin/env python3
 import glob
 from typing import List
 from multiprocessing import Pool
 from tqdm import tqdm
-
 import os, sys
 
 # Get the absolute path of the current script
@@ -13,7 +11,7 @@ current_script_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.abspath(os.path.join(current_script_dir, "../"))
 print("project_root", project_root)
 
-"""
+
 # Add the project root to PYTHONPATH
 sys.path.append(project_root)
 
@@ -154,4 +152,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-"""

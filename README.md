@@ -23,3 +23,9 @@ Go mostly for the heavy lifting.
 
 ## The Hallucination can also be reduced using this here: 
 https://colab.research.google.com/drive/1AXccYmC11kWJ8zZtqS78ZvmBCC7yIPI0#scrollTo=yjs-uPXBrnQs
+
+## Goal of This Backend:
+   * Supabase
+   * Rust, No Third Party Applications connected to it.
+   * Prove halucination solved
+   * 

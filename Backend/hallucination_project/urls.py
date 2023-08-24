@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from ninja import NinjaAPI
+from ninja import Schema
 
-urlpatterns = [
-    path("admin/", admin.site.urls),
-]
+# We add all the routers here:
+from hallucination_app.routers.ingest_api import router as ingest_router
+
+api = NinjaAPI()
+api.add_router("/ingest/", ingest_router)
+
+urlpatterns = [path("admin/", admin.site.urls), path("api/", api.urls)]

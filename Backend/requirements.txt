@@ -1,1 +1,2 @@
 unstructured
+django-ninja

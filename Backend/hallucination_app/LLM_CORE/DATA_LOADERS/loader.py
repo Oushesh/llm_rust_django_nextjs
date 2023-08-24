@@ -1,7 +1,7 @@
 # Custom document loaders
 # Converts a pdf into a list of elements
 # Reference: https://github.com/langchain-ai/langchain/blob/master/libs/langchain/langchain/document_loaders/unstructured.py
-from typing import Dict
+from typing import Dict, Iterator
 
 import sys
 import os

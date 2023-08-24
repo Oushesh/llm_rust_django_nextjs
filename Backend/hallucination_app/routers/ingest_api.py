@@ -19,12 +19,12 @@ sys.path.append(project_root)
 
 print("project_root", project_root)
 
-from hallucination_app.PREPROCESSING.preprocessor import (
+from hallucination_app.LLM_CORE.PREPROCESSING.preprocessor import (
     RecursiveCharacterTextSplitter,
 )
 
-from hallucination_app.DATA_LOADERS.loader import CSVLoader
-from hallucination_app.schema.document import Document
+from hallucination_app.LLM_CORE.DATA_LOADERS.loader import CSVLoader
+from hallucination_app.LLM_CORE.schema.document import Document
 
 from langchain.vectorstores import Chroma
 from langchain.embeddings import HuggingFaceEmbeddings

@@ -5,8 +5,21 @@ from typing import List, Any, Dict
 import collections
 from abc import ABC, abstractmethod
 from typing import Iterator, List, Optional
-from Backend.hallucination_app.schema.document import Document
-from Backend.hallucination_app.PREPROCESSING.preprocessing import *
+
+import sys
+import os
+
+# Get the absolute path of the current script
+current_script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Calculate the project root directory (three levels up from loaders.py)
+project_root = os.path.abspath(os.path.join(current_script_dir, "../../.."))
+
+# print("project_root", project_root)
+# Add the project root to PYTHONPATH
+sys.path.append(project_root)
+
+from Backend.hallucination_app.PREPROCESSING.preprocessor import *
 
 
 class BaseLoader(ABC):

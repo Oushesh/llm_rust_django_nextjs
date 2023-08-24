@@ -1,9 +1,24 @@
 from typing import List, Optional, Any
 from abc import ABC, abstractmethod
-from typing import TypeVar, Iterator, List, Optional, Callable, Iterable
+
+from enum import Enum
+from typing import (
+    TypeVar,
+    Iterator,
+    List,
+    Optional,
+    Callable,
+    Iterable,
+    Union,
+    Literal,
+    Collection,
+    Type,
+    AbstractSet,
+    Sequence,
+)
 import copy
 import logging
-import Backend
+import collections
 from Backend.hallucination_app.schema.document import BaseDocumentTransformer, Document
 
 logger = logging.getLogger(__name__)
@@ -121,7 +136,7 @@ class TextSplitter(BaseDocumentTransformer, ABC):
         return docs
 
     @classmethod
-    def from_huggingface_tokenizer(cls, tokenizer: Any, **kwargs: Any) -> TextSplitter:
+    def from_huggingface_tokenizer(cls, tokenizer: Any, **kwargs: Any):
         """Text splitter that uses HuggingFace tokenizer to count length."""
         try:
             from transformers import PreTrainedTokenizerBase
@@ -198,6 +213,27 @@ class TextSplitter(BaseDocumentTransformer, ABC):
         raise NotImplementedError
 
 
+class Language(str, Enum):
+    """Enum of the programming languages."""
+
+    CPP = "cpp"
+    GO = "go"
+    JAVA = "java"
+    JS = "js"
+    PHP = "php"
+    PROTO = "proto"
+    PYTHON = "python"
+    RST = "rst"
+    RUBY = "ruby"
+    RUST = "rust"
+    SCALA = "scala"
+    SWIFT = "swift"
+    MARKDOWN = "markdown"
+    LATEX = "latex"
+    HTML = "html"
+    SOL = "sol"
+
+
 class RecursiveCharacterTextSplitter(TextSplitter):
     """Splitting text by recursively look at characters.
 
@@ -261,9 +297,7 @@ class RecursiveCharacterTextSplitter(TextSplitter):
         return self._split_text(text, self._separators)
 
     @classmethod
-    def from_language(
-        cls, language: Language, **kwargs: Any
-    ) -> RecursiveCharacterTextSplitter:
+    def from_language(cls, language: Language, **kwargs: Any):
         separators = cls.get_separators_for_language(language)
         return cls(separators=separators, is_separator_regex=True, **kwargs)
 

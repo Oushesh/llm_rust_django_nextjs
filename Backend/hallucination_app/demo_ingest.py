@@ -1,13 +1,8 @@
 #!/usr/bin/env python3
-import os
 import glob
 from typing import List
 from multiprocessing import Pool
 from tqdm import tqdm
-
-from langchain.document_loaders import (
-    CSVLoader,
-)
 
 import os, sys
 
@@ -25,17 +20,17 @@ from hallucination_app.PREPROCESSING.preprocessor import (
     RecursiveCharacterTextSplitter,
 )
 
-# from langchain.text_splitter import RecursiveCharacterTextSplitter
+from hallucination_app.DATA_LOADERS.loader import CSVLoader
+from hallucination_app.schema.document import Document
+
 from langchain.vectorstores import Chroma
 from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.docstore.document import Document
-from constants import CHROMA_SETTINGS
 
-from DATA_LOADERS.loader import Data_loader
+from constants import CHROMA_SETTINGS
 
 # Load environment variables
 persist_directory = os.environ.get("PERSIST_DIRECTORY", "db")
-source_directory = os.environ.get("SOURCE_DIRECTORY", "source_documents")
+source_directory = os.environ.get("SOURCE_DIRECTORY", "LLM_CORE/source_documents")
 embeddings_model_name = os.environ.get("EMBEDDINGS_MODEL_NAME", "all-MiniLM-L6-v2")
 chunk_size = 500
 chunk_overlap = 50

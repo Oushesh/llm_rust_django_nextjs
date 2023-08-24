@@ -2,8 +2,7 @@ from __future__ import annotations
 from pydantic import Field
 from abc import ABC, abstractmethod
 from typing import Any, Sequence
-import Backend
-from Backend.hallucination_app.INGESTION.Serializable import Serializable
+from Backend.hallucination_app.LLM_CORE.INGESTION import Serializable
 
 
 class Document(Serializable):

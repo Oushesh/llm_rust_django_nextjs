@@ -25,35 +25,14 @@ from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.docstore.document import Document
 from constants import CHROMA_SETTINGS
 
+from DATA_LOADERS.loader import Data_loader
+
 # Load environment variables
 persist_directory = os.environ.get("PERSIST_DIRECTORY", "db")
 source_directory = os.environ.get("SOURCE_DIRECTORY", "source_documents")
 embeddings_model_name = os.environ.get("EMBEDDINGS_MODEL_NAME", "all-MiniLM-L6-v2")
 chunk_size = 500
 chunk_overlap = 50
-
-
-# Custom document loaders
-class MyElmLoader(UnstructuredEmailLoader):
-    """Wrapper to fallback to text/plain when default does not work"""
-
-    def load(self) -> List[Document]:
-        """Wrapper adding fallback for elm without html"""
-        try:
-            try:
-                doc = UnstructuredEmailLoader.load(self)
-            except ValueError as e:
-                if "text/html content not found in email" in str(e):
-                    # Try plain text
-                    self.unstructured_kwargs["content_source"] = "text/plain"
-                    doc = UnstructuredEmailLoader.load(self)
-                else:
-                    raise
-        except Exception as e:
-            # Add file_path to exception message
-            raise type(e)(f"{self.file_path}: {e}") from e
-        return doc
-
 
 # Map file extensions to document loaders and their arguments
 LOADER_MAPPING = {
@@ -62,7 +41,7 @@ LOADER_MAPPING = {
     ".doc": (UnstructuredWordDocumentLoader, {}),
     ".docx": (UnstructuredWordDocumentLoader, {}),
     ".enex": (EverNoteLoader, {}),
-    ".eml": (MyElmLoader, {}),
+    ".eml": (Data_loader, {}),
     ".epub": (UnstructuredEPubLoader, {}),
     ".html": (UnstructuredHTMLLoader, {}),
     ".md": (UnstructuredMarkdownLoader, {}),

@@ -5,15 +5,17 @@ from typing import Any, Sequence
 import Backend
 from Backend.hallucination_app.INGESTION.Serializable import Serializable
 
+
 class Document(Serializable):
     """Class for storing a piece of text and associated metadata."""
+
     page_content: str
     """String text."""
     metadata: dict = Field(default_factory=dict)
+    """Arbitrary metadata about the page content (e.g., source, relationships to other
+        documents, etc.).
     """
-    Arbitrary metadata about the page content (e.g. source,
-    relationships to other documents, etc.).
-    """
+
 
 class BaseDocumentTransformer(ABC):
     """
@@ -26,9 +28,7 @@ class BaseDocumentTransformer(ABC):
 
     @abstractmethod
     def transform_documents(
-            self,
-            documents: Sequence[Document],
-            **kwargs:Any
+        self, documents: Sequence[Document], **kwargs: Any
     ) -> Sequence[Document]:
         """
         Transform a list of documents.
@@ -39,10 +39,8 @@ class BaseDocumentTransformer(ABC):
 
     @abstractmethod
     async def atransform_documents(
-            self,
-            documents: Sequence[Document],
-            **kwargs: Any
-    )->Sequence[Document]:
+        self, documents: Sequence[Document], **kwargs: Any
+    ) -> Sequence[Document]:
         """
         Asynchronously transform a list of documents
         :param documents: A sequence of Documents to be transformed.

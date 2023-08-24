@@ -28,4 +28,6 @@ https://colab.research.google.com/drive/1AXccYmC11kWJ8zZtqS78ZvmBCC7yIPI0#scroll
    * Supabase
    * Rust, No Third Party Applications connected to it.
    * Prove halucination solved
+
+## API Endpoints:
    * 

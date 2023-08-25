@@ -28,7 +28,10 @@ from hallucination_app.LLM_CORE.schema.document import Document
 
 from langchain.vectorstores import Chroma
 from langchain.embeddings import HuggingFaceEmbeddings
-from constants import CHROMA_SETTINGS
+
+
+from hallucination_app.LLM_CORE.constants import CHROMA_SETTINGS
+from hallucination_app.schemas.file import InputFileIN
 
 # Load environment variables
 persist_directory = os.environ.get("PERSIST_DIRECTORY", "db")
@@ -118,8 +121,8 @@ def does_vectorstore_exist(persist_directory: str) -> bool:
     return False
 
 
-@router.post("/ingest", response=dict)
-def ingest():
+@router.post("/ingest")
+def ingest(request, path: InputFileIN):
     # Create embeddings
     embeddings = HuggingFaceEmbeddings(model_name=embeddings_model_name)
 

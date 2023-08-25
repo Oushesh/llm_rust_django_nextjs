@@ -20,8 +20,9 @@ from ninja import Schema
 
 # We add all the routers here:
 from hallucination_app.routers.ingest_api import router as ingest_router
+from hallucination_app.routers.gpt_api import router as gpt_router
 
 api = NinjaAPI()
 api.add_router("/ingest/", ingest_router)
-
+api.add_router("gpt/", gpt_router)
 urlpatterns = [path("admin/", admin.site.urls), path("api/", api.urls)]

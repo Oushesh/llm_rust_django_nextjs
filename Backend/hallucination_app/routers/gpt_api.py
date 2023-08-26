@@ -25,7 +25,7 @@ target_source_chunks = int(os.environ.get("TARGET_SOURCE_CHUNKS", 4))
 from hallucination_app.LLM_CORE.constants import CHROMA_SETTINGS
 
 
-@router.post("/gpt")
+@router.get("/gpt")
 def gpt(request):
     # Parse the command line arguments
     args = parse_arguments()
@@ -73,6 +73,7 @@ def gpt(request):
         for document in docs:
             print("\n> " + document.metadata["source"] + ":")
             print(document.page_content)
+    return {"Success": "GPT Talked to you"}
 
 
 def parse_arguments():
@@ -96,8 +97,7 @@ def parse_arguments():
     return parser.parse_args()
 
 
-if __name__ == "__main__":
-    main()
+## how to run this in 8gb memory? 16gb memory ram is something we don't have right now.
+## Run GPT locally and not in the cloud for now.
 
-
-# how to run this in 8gb memory? 16gb memory ram is something we dont have right now.
+##

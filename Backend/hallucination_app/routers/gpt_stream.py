@@ -1,8 +1,17 @@
 from django.http import StreamingHttpResponse
 import subprocess
 from ninja import Router
+import os, sys
 
 router = Router()
+
+# Get the absolute path of the current script
+current_script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Calculate the project root directory (three levels up from loaders.py)
+project_root = os.path.abspath(
+    os.path.join(current_script_dir, "../../../../rust_core/ggml")
+)
 
 
 # The subprocess command
@@ -10,9 +19,9 @@ router = Router()
 def generate_output(request):
     def stream_output():
         command = [
-            "./build/bin/gpt-2",
+            ".project_root/build/bin/gpt-2",
             "-m",
-            "models/gpt-2-117M/ggml-model-gpt-2-1558M.bin",
+            "project_root/models/gpt-2-117M/ggml-model-gpt-2-1558M.bin",
             "-p",
             "What is the capital of France?",
         ]

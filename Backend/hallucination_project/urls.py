@@ -24,7 +24,7 @@ from hallucination_app.routers.gpt_api import router as gpt_router
 from hallucination_app.routers.gpt_stream import router as stream_router
 
 api = NinjaAPI()
-api.add_router("/ingest/", ingest_router)
-api.add_router("/gpt/", gpt_router)
-api.add_router("/stream/", stream_router)
+api.add_router("/", ingest_router)
+api.add_router("/", gpt_router)
+api.add_router("/", stream_router)
 urlpatterns = [path("admin/", admin.site.urls), path("api/", api.urls)]

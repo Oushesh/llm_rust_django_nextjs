@@ -37,7 +37,7 @@ def generate_output(request):
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 text=True,
-                bufsize=1,
+                bufsize=0,
                 universal_newlines=True,
             )
 

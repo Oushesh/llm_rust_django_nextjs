@@ -20,3 +20,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+## procurment of companies, sales and other things.
+## Large Language Models for that or legal. either or.

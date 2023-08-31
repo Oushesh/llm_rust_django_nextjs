@@ -19,7 +19,6 @@ Go mostly for the heavy lifting.
    * Check projects for Retrieval Augmented Information.
    * Implementation Retrieval Augmented Generation.
      T4 GPU from Google Colab.
-   * 
 
 ## The Hallucination can also be reduced using this here: 
 https://colab.research.google.com/drive/1AXccYmC11kWJ8zZtqS78ZvmBCC7yIPI0#scrollTo=yjs-uPXBrnQs
@@ -30,4 +29,20 @@ https://colab.research.google.com/drive/1AXccYmC11kWJ8zZtqS78ZvmBCC7yIPI0#scroll
    * Prove halucination solved
 
 ## API Endpoints:
-   
+   * 
+
+## Pitch on Tech:
+   * Rust Backend, end to end solutions. 
+     User friendly API
+     user privacy
+     No halucination from the AI Agent.
+
+## Pitch on Product:
+   * Netflix Subscription churn prediction, automate sending personalised mails. a/B testing
+   * Find, contact, and close your ideal buyers with over 265M contacts and streamlined engagement workflows powered by AI. 
+
+    * Give a voice to the data of company.
+    * Sales Intelligence: figuring out why sales is so poor.
+    * Talk to Sales Data, Churn prediction. 
+    * 
+      

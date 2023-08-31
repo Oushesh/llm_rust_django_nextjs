@@ -26,7 +26,7 @@ https://colab.research.google.com/drive/1AXccYmC11kWJ8zZtqS78ZvmBCC7yIPI0#scroll
 ## Goal of This Backend:
    * Supabase
    * Rust, No Third Party Applications connected to it.
-   * Prove halucination solved
+   * Prove hallucination solved
 
 ## API Endpoints:
    * 
@@ -35,7 +35,7 @@ https://colab.research.google.com/drive/1AXccYmC11kWJ8zZtqS78ZvmBCC7yIPI0#scroll
    * Rust Backend, end to end solutions. 
      User friendly API
      user privacy
-     No halucination from the AI Agent.
+     No hallucination from the AI Agent.
 
 ## Pitch on Product:
    * Netflix Subscription churn prediction, automate sending personalised mails. a/B testing
@@ -44,5 +44,8 @@ https://colab.research.google.com/drive/1AXccYmC11kWJ8zZtqS78ZvmBCC7yIPI0#scroll
     * Give a voice to the data of company.
     * Sales Intelligence: figuring out why sales is so poor.
     * Talk to Sales Data, Churn prediction. 
-    * 
-      
+    * Small Startups --> Get their leads.
+
+    * Big Companies --> Really good customer service.
+    * Companies do not have the expertise to find new sales lead. 
+    *   

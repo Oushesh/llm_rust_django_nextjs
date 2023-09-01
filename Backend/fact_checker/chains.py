@@ -2,7 +2,6 @@ from typing import List, Optional, Dict
 from base_chain import Chain
 from pydantic import Extra, root_validator
 
-
 class SimpleSequentialChain(Chain):
     """Simple chain where the outputs of one step feed directly into next."""
 
@@ -11,30 +10,17 @@ class SimpleSequentialChain(Chain):
     input_key: str = "input"  #: :meta private:
     output_key: str = "output"  #: :meta private:
 
+    def __init__(self):
+        self.input_key
+        self.output_key
+
     class Config:
         """Configuration for this pydantic object."""
-
         extra = Extra.forbid
         arbitrary_types_allowed = True
 
-    @property
-    def input_keys(self) -> List[str]:
-        """Expect input key.
-
-        :meta private:
-        """
-        return [self.input_key]
-
-    @property
-    def output_keys(self) -> List[str]:
-        """Return output key.
-
-        :meta private:
-        """
-        return [self.output_key]
-
     @root_validator()
-    def validate_chains(cls, values: Dict) -> Dict:
+    def validate_chains(cls, values: Dict):
         """Validate that chains are all single input/output."""
         value_chain =values.get("chains",{})
         if not value_chain=={}:
@@ -54,8 +40,11 @@ class SimpleSequentialChain(Chain):
     def _call(
         self,
         inputs: Dict[str, str],
-        run_manager=  None,
+        run_manager=None,
     ):
+        print("Debug: Instance Attributes:", self.__dict__)  # Debugging statement
+        print("Debug: Is Instance of SimpleSequentialChain:", isinstance(self, SimpleSequentialChain))  # Debugging statement
+
         _run_manager = run_manager
         _input = inputs[self.input_key]
         color_mapping = get_color_mapping([str(i) for i in range(len(self.chains))])

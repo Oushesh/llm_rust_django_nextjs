@@ -1,5 +1,5 @@
 from typing import List, Optional, Dict
-from Backend.fact_checker.base_chain import Chain
+from base_chain import Chain
 class SimpleSequentialChain(Chain):
     """Simple chain where the outputs of one step feed directly into next."""
 

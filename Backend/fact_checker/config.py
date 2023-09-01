@@ -5,7 +5,7 @@ from concurrent.futures import ThreadPoolExecutor
 from langchain.callbacks.base import BaseCallbackManager, Callbacks
 from contextlib import contextmanager
 from copy import deepcopy
-from Backend.fact_checker.callbacks.manager import CallbackManager
+from callbacks.manager import CallbackManager
 
 def get_callback_manager_for_config(config):
     return CallbackManager.configure(

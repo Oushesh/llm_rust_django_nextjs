@@ -3,7 +3,7 @@ from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 #from langchain.chains import SimpleSequentialChain
 
-from fact_checker.chains import SimpleSequentialChain
+from chains import SimpleSequentialChain
 
 import sys
 from dotenv import load_dotenv

@@ -1,7 +1,7 @@
 #from typing import Generator, Union, Other, Callable, Any, List
 from abc import ABC
 from serializable import Serializable
-from Backend.fact_checker.config import ensure_config, get_executor_for_config, patch_config, RunnableConfig
+from config import ensure_config, get_executor_for_config, patch_config, RunnableConfig
 
 
 import asyncio

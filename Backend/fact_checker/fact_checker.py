@@ -3,10 +3,9 @@ from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 #from langchain.chains import SimpleSequentialChain
 
-from Backend.fact_checker.chains import SimpleSequentialChain
+from fact_checker.chains import SimpleSequentialChain
 
 import sys
-
 from dotenv import load_dotenv
 
 load_dotenv()

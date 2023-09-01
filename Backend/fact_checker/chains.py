@@ -1,5 +1,8 @@
 from typing import List, Optional, Dict
 from base_chain import Chain
+from pydantic import Extra, root_validator
+
+
 class SimpleSequentialChain(Chain):
     """Simple chain where the outputs of one step feed directly into next."""
 
@@ -33,25 +36,27 @@ class SimpleSequentialChain(Chain):
     @root_validator()
     def validate_chains(cls, values: Dict) -> Dict:
         """Validate that chains are all single input/output."""
-        for chain in values["chains"]:
-            if len(chain.input_keys) != 1:
-                raise ValueError(
-                    "Chains used in SimplePipeline should all have one input, got "
-                    f"{chain} with {len(chain.input_keys)} inputs."
-                )
-            if len(chain.output_keys) != 1:
-                raise ValueError(
-                    "Chains used in SimplePipeline should all have one output, got "
-                    f"{chain} with {len(chain.output_keys)} outputs."
-                )
+        value_chain =values.get("chains",{})
+        if not value_chain=={}:
+            for chain in value_chain:
+                if len(chain.input_keys) != 1:
+                    raise ValueError(
+                        "Chains used in SimplePipeline should all have one input, got "
+                        f"{chain} with {len(chain.input_keys)} inputs."
+                    )
+                if len(chain.output_keys) != 1:
+                    raise ValueError(
+                        "Chains used in SimplePipeline should all have one output, got "
+                        f"{chain} with {len(chain.output_keys)} outputs."
+                    )
         return values
 
     def _call(
         self,
         inputs: Dict[str, str],
-        run_manager: Optional[CallbackManagerForChainRun] = None,
-    ) -> Dict[str, str]:
-        _run_manager = run_manager or CallbackManagerForChainRun.get_noop_manager()
+        run_manager=  None,
+    ):
+        _run_manager = run_manager
         _input = inputs[self.input_key]
         color_mapping = get_color_mapping([str(i) for i in range(len(self.chains))])
         for i, chain in enumerate(self.chains):

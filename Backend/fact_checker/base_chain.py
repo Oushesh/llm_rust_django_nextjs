@@ -73,7 +73,7 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
             values["callbacks"] = values.pop("callback_manager", None)
         return values
 
-    @validator("verbose", pre=True, always=True)
+    #@validator("verbose", pre=True, always=True)
     def set_verbose(cls, verbose: Optional[bool]) -> bool:
         """Set the chain verbosity.
 

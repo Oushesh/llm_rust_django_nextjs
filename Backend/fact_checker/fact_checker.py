@@ -43,8 +43,6 @@ def fact_check(question):
         chains=[question_chain, assumptions_chain, fact_checker_chain, answer_chain],
         verbose=True,
     )
-
-
     return overall_chain.run(question)
 
 

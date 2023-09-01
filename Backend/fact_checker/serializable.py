@@ -2,12 +2,17 @@ from typing import List, Dict, Any, Optional, Union, cast
 from abc import ABC, abstractmethod
 from pydantic import BaseModel, PrivateAttr
 
-from pydantic import BaseModel, PrivateAttr
+from pydantic import BaseModel, PrivateAttr, Extra
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List, cast
 
 class Serializable(BaseModel, ABC):
     """Serializable base class."""
+    class Config:
+        """Configuration for this pydantic object."""
+
+        extra = Extra.forbid
+        arbitrary_types_allowed = True
 
     @property
     def lc_serializable(self) -> bool:
@@ -60,8 +65,9 @@ class Serializable(BaseModel, ABC):
         pass
 
     def __init__(self, **kwargs: Any):
-        super().__init__(**kwargs)
-        self._lc_kwargs = kwargs
+        super().__init__(**kwargs)  # calling the constructor of the superclass
+        self._lc_kwargs = kwargs    # storing kwargs
+
 
 
     def to_json(self):

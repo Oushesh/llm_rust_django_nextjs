@@ -2,6 +2,10 @@ from typing import List, Dict, Any, Optional, Union, cast
 from abc import ABC, abstractmethod
 from pydantic import BaseModel, PrivateAttr
 
+from pydantic import BaseModel, PrivateAttr
+from abc import ABC, abstractmethod
+from typing import Any, Dict, List, cast
+
 class Serializable(BaseModel, ABC):
     """Serializable base class."""
 
@@ -38,13 +42,27 @@ class Serializable(BaseModel, ABC):
         return {}
 
     class Config:
-        extra = "ignore"
+        extra = "ignore"  # this allows for extra fields to be ignored
 
     _lc_kwargs = PrivateAttr(default_factory=dict)
 
-    def __init__(self, **kwargs: Any) -> None:
+    # Implementing required abstract methods (replace with actual methods if needed)
+    @abstractmethod
+    def _call(self):
+        pass
+
+    @abstractmethod
+    def input_keys(self):
+        pass
+
+    @abstractmethod
+    def output_keys(self):
+        pass
+
+    def __init__(self, **kwargs: Any):
         super().__init__(**kwargs)
         self._lc_kwargs = kwargs
+
 
     def to_json(self):
         if not self.lc_serializable:

@@ -8,7 +8,7 @@ class SimpleSequentialChain(Chain):
     chains: List[Chain]
     strip_outputs: bool = False
     input_key: str = "input"  #: :meta private:
-    output_keys: str = "output"  #: :meta private:
+    output_key: str = "output"  #: :meta private:
 
     class Config:
         """Configuration for this pydantic object."""
@@ -24,12 +24,12 @@ class SimpleSequentialChain(Chain):
         return [self.input_key]
 
     @property
-    def output_keys(self) -> List[str]:
+    def output_key(self) -> List[str]:
         """Return output key.
 
         :meta private:
         """
-        return [self.output_keys]
+        return [self.output_key]
 
     @root_validator(pre=True)
     def validate_chains(cls, values):
@@ -37,13 +37,13 @@ class SimpleSequentialChain(Chain):
         if chains is None:
             raise ValueError('"chains" must be provided')
         for chain in chains:
-            # Check if 'input_keys' and 'output_keys' attributes exist
-            if not hasattr(chain, 'input_keys') or not hasattr(chain, 'output_keys'):
-                raise ValueError(f"The object {chain} doesn't have input_keys and/or output_keys attributes.")
+            # Check if 'input_keys' and 'output_key' attributes exist
+            if not hasattr(chain, 'input_keys') or not hasattr(chain, 'output_key'):
+                raise ValueError(f"The object {chain} doesn't have input_keys and/or output_key attributes.")
             """
-            if len(chain.input_keys) != 1 or len(chain.output_keys) != 1:
+            if len(chain.input_keys) != 1 or len(chain.output_key) != 1:
                 raise ValueError(
-                    f"Chains in SimpleSequentialChain should all have one input and one output, got {chain} with {len(chain.input_keys)} inputs and {len(chain.output_keys)} outputs."
+                    f"Chains in SimpleSequentialChain should all have one input and one output, got {chain} with {len(chain.input_keys)} inputs and {len(chain.output_key)} outputs."
                 )
             """
         return values
@@ -60,4 +60,4 @@ class SimpleSequentialChain(Chain):
             _run_manager.on_text(
                 output, color=color_mapping[str(i)], end="\n", verbose=self.verbose
             )
-        return {self.output_keys[0]: output}  # Assuming there's only one output key
+        return {self.output_key[0]: output}  # Assuming there's only one output key

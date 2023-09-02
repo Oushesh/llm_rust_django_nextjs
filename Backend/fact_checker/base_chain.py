@@ -61,7 +61,6 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
             **kwargs,
         )
 
-
     memory: Optional[BaseMemory] = None
     callbacks: Optional[CallbackManager] = Field(default=None, exclude=True) #made this optional.
     verbose: bool = Field(default_factory=_get_verbosity)
@@ -69,11 +68,14 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
     tags: Optional[List[str]] = None
     metadata: Optional[Dict[str, Any]] = None
 
+    # Alias output_keys to avoid shadowing built-in attributes
+    output_keys_: List[str] = Field(alias='output_keys')
+    input_keys_: List[str] = Field(alias='input_keys')
 
     class Config:
         """Configuration for this pydantic object."""
-
         arbitrary_types_allowed = True
+        allow_population_by_field_name = True  # To allow field initialization using the alias
 
     @property
     def _chain_type(self) -> str:
@@ -111,11 +113,13 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
     @abstractmethod
     def input_keys(self) -> List[str]:
         """Keys expected to be in the chain input."""
+        pass
 
     @property
     @abstractmethod
-    def output_keys(self) -> List[str]:
+    def output_key(self) -> List[str]:
         """Keys expected to be in the chain output."""
+        pass
 
     def _validate_inputs(self, inputs: Dict[str, Any]) -> None:
         """Check that all inputs are present."""
@@ -124,7 +128,7 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
             raise ValueError(f"Missing some input keys: {missing_keys}")
 
     def _validate_outputs(self, outputs: Dict[str, Any]) -> None:
-        missing_keys = set(self.output_keys).difference(outputs)
+        missing_keys = set(self.output_key).difference(outputs)
         if missing_keys:
             raise ValueError(f"Missing some output keys: {missing_keys}")
 
@@ -148,7 +152,7 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
 
         Returns:
             A dict of named outputs. Should contain all outputs specified in
-                `Chain.output_keys`.
+                `Chain.output_key`.
         """
 
     async def _acall(
@@ -170,7 +174,8 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
 
         Returns:
             A dict of named outputs. Should contain all outputs specified in
-                `Chain.output_keys`.
+                `Chain.output_key
+                `.
         """
         raise NotImplementedError("Async call not supported for this chain type.")
 
@@ -208,7 +213,7 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
 
         Returns:
             A dict of named outputs. Should contain all outputs specified in
-                `Chain.output_keys`.
+                `Chain.output_key`.
         """
         inputs = self.prep_inputs(inputs)
         callback_manager = CallbackManager.configure(
@@ -304,12 +309,12 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
 
     @property
     def _run_output_key(self) -> str:
-        if len(self.output_keys) != 1:
+        if len(self.output_key) != 1:
             raise ValueError(
                 f"`run` not supported when there is not exactly "
-                f"one output key. Got {self.output_keys}."
+                f"one output key. Got {self.output_key}."
             )
-        return self.output_keys[0]
+        return self.output_key[0]
 
     def run(
         self,
@@ -426,10 +431,10 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
                 await chain.arun(question=question, context=context)
                 # -> "The temperature in Boise is..."
         """
-        if len(self.output_keys) != 1:
+        if len(self.output_key) != 1:
             raise ValueError(
                 f"`run` not supported when there is not exactly "
-                f"one output key. Got {self.output_keys}."
+                f"one output key. Got {self.output_key}."
             )
         elif args and not kwargs:
             if len(args) != 1:
@@ -438,14 +443,14 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
                 await self.acall(
                     args[0], callbacks=callbacks, tags=tags, metadata=metadata
                 )
-            )[self.output_keys[0]]
+            )[self.output_key[0]]
 
         if kwargs and not args:
             return (
                 await self.acall(
                     kwargs, callbacks=callbacks, tags=tags, metadata=metadata
                 )
-            )[self.output_keys[0]]
+            )[self.output_key[0]]
 
         raise ValueError(
             f"`run` supported with either positional arguments or keyword arguments"

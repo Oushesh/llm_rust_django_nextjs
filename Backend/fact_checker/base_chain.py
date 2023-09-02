@@ -67,9 +67,9 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
     tags: Optional[List[str]] = None
     metadata: Optional[Dict[str, Any]] = None
 
-    # Alias output_keys to avoid shadowing built-in attributes
-    output_keys_: List[str] = Field(alias='output_keys')
-    input_keys_: List[str] = Field(alias='input_keys')
+    # Alias output_keys_alias to avoid shadowing built-in attributes
+    output_keys_alias : List[str] = Field(alias='output_keys_alias')
+    input_keys_alias : List[str] = Field(alias='input_keys_alias')
 
     class Config:
         """Configuration for this pydantic object."""
@@ -110,24 +110,24 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
 
     @property
     @abstractmethod
-    def input_keys(self) -> List[str]:
+    def input_keys_alias(self) -> List[str]:
         """Keys expected to be in the chain input."""
         pass
 
     @property
     @abstractmethod
-    def output_key(self) -> List[str]:
+    def output_key_alias(self) -> List[str]:
         """Keys expected to be in the chain output."""
         pass
 
     def _validate_inputs(self, inputs: Dict[str, Any]) -> None:
         """Check that all inputs are present."""
-        missing_keys = set(self.input_keys).difference(inputs)
+        missing_keys = set(self.input_keys_alias).difference(inputs)
         if missing_keys:
             raise ValueError(f"Missing some input keys: {missing_keys}")
 
     def _validate_outputs(self, outputs: Dict[str, Any]) -> None:
-        missing_keys = set(self.output_key).difference(outputs)
+        missing_keys = set(self.output_key_alias).difference(outputs)
         if missing_keys:
             raise ValueError(f"Missing some output keys: {missing_keys}")
 
@@ -308,12 +308,12 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
 
     @property
     def _run_output_key(self) -> str:
-        if len(self.output_key) != 1:
+        if len(self.output_key_alias) != 1:
             raise ValueError(
                 f"`run` not supported when there is not exactly "
-                f"one output key. Got {self.output_key}."
+                f"one output key. Got {self.output_keys_alias}."
             )
-        return self.output_key[0]
+        return self.output_key_alias[0]
 
     def run(
         self,

@@ -7,8 +7,8 @@ from typing import List
 class SimpleSequentialChain(Chain):
     chains: List[Chain]
     strip_outputs: bool = False
-    input_key: str = "input"  #: :meta private:
-    output_key: str = "output"  #: :meta private:
+    input_keys_alias: str = "input"  #: :meta private:
+    output_key_alias: str = "output"  #: :meta private:
 
     class Config:
         """Configuration for this pydantic object."""
@@ -16,20 +16,20 @@ class SimpleSequentialChain(Chain):
         arbitrary_types_allowed = True
 
     @property
-    def input_keys(self) -> List[str]:
+    def input_keys_alias(self) -> List[str]:
         """Expect input key.
 
         :meta private:
         """
-        return [self.input_key]
+        return [self.input_keys_alias]
 
     @property
-    def output_key(self) -> List[str]:
+    def output_key_alias(self) -> List[str]:
         """Return output key.
 
         :meta private:
         """
-        return [self.output_key]
+        return [self.output_key_alias]
 
     @root_validator(pre=True)
     def validate_chains(cls, values):
@@ -37,17 +37,16 @@ class SimpleSequentialChain(Chain):
         if chains is None:
             raise ValueError('"chains" must be provided')
         for chain in chains:
-            # Check if 'input_keys' and 'output_key' attributes exist
-            if not hasattr(chain, 'input_keys') or not hasattr(chain, 'output_key'):
-                raise ValueError(f"The object {chain} doesn't have input_keys and/or output_key attributes.")
+            # Check if 'input_keys' and 'output_key_alias' attributes exist
+            if not hasattr(chain, 'input_keys_alias') or not hasattr(chain, 'output_key_alias'):
+                raise ValueError(f"The object {chain} doesn't have input_keys_alias and/or output_key attributes.")
             """
-            if len(chain.input_keys) != 1 or len(chain.output_key) != 1:
+            if len(chain.input_keys_alias) != 1 or len(chain.output_key_alias) != 1:
                 raise ValueError(
-                    f"Chains in SimpleSequentialChain should all have one input and one output, got {chain} with {len(chain.input_keys)} inputs and {len(chain.output_key)} outputs."
+                    f"Chains in SimpleSequentialChain should all have one input and one output, got {chain} with {len(chain.input_keys_alias)} inputs and {len(chain.output_key_alias)} outputs."
                 )
             """
         return values
-
 
     def _call(self, inputs: Dict[str, Any], run_manager=None) -> Dict[str, Any]:
         _run_manager = run_manager
@@ -60,4 +59,4 @@ class SimpleSequentialChain(Chain):
             _run_manager.on_text(
                 output, color=color_mapping[str(i)], end="\n", verbose=self.verbose
             )
-        return {self.output_key[0]: output}  # Assuming there's only one output key
+        return {self.output_key_alias[0]: output}  # Assuming there's only one output key

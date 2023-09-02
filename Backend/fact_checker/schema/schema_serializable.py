@@ -47,7 +47,6 @@ class Serializable(BaseModel, ABC):
     def output_key_alias(self) -> List[str]:
         pass
 
-
     def __init__(self, **kwargs: Any):
         print("Debug kwargs:", kwargs)  # Debugging line
         self._lc_kwargs = kwargs

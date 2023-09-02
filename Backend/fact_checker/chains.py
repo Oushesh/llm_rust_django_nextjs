@@ -53,3 +53,6 @@ class SimpleSequentialChain(Chain):
                 output, color=color_mapping[str(i)], end="\n", verbose=self.verbose
             )
         return {self.output_key_alias[0]: output}  # Assuming there's only one output key
+
+
+#Debug this and test the code.

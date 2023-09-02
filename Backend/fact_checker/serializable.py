@@ -40,11 +40,11 @@ class Serializable(BaseModel, ABC):
         pass
 
     @abstractmethod
-    def input_keys(self):
+    def input_keys_alias(self) -> List[str]:
         pass
 
     @abstractmethod
-    def output_keys(self):
+    def output_key_alias(self) -> List[str]:
         pass
 
     def __init__(self, **kwargs: Any):

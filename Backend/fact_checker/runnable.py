@@ -3,7 +3,6 @@ from abc import ABC
 from serializable import Serializable
 from config import ensure_config, get_executor_for_config, patch_config, RunnableConfig
 
-
 import asyncio
 from typing import (
     Any,
@@ -18,8 +17,6 @@ from typing import (
     Union,
     cast,
 )
-
-
 
 Input = TypeVar("Input")
 # Output type should implement __concat__, as eg str, list, dict do

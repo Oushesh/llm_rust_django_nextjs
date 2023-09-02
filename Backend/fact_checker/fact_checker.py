@@ -1,10 +1,7 @@
 from langchain.llms import OpenAI
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
-#from langchain.chains import SimpleSequentialChain
-
 from chains import SimpleSequentialChain
-
 import sys
 from dotenv import load_dotenv
 
@@ -55,7 +52,7 @@ if __name__ == "__main__":
     answer = fact_check(question)
     print(answer)
 
-## Definitely something we need to work on. Get to Ippen Digital Media and ask them
+## Definitely something we need to work on. Get to Ippen Digital Media and ask them, Materna SE as well.
 ## about the interview. (clear the 6 months for PR.)
 
 # Build this code: Rewrite the SimpleSequentialChain,

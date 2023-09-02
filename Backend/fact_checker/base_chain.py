@@ -2,12 +2,15 @@ from typing import List, Dict, Any, Optional, Union
 from abc import ABC,  abstractmethod
 from serializable import Serializable
 from runnable import Runnable
-from pydantic import root_validator, validator
+from pydantic import root_validator, validator, Field
 from config import RunnableConfig
 from pathlib import Path
 import yaml
 import json
 import warnings
+import asyncio
+
+from schema.memory import BaseMemory
 
 class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
     """Abstract base class for creating structured sequences of calls to components.
@@ -34,18 +37,72 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
 
     def invoke(
         self,
-        input,
-        config = None,
-        **kwargs,
-    ):
+        input: Dict[str, Any],
+        config: Optional[RunnableConfig] = None,
+        **kwargs: Any,
+    ) -> Dict[str, Any]:
         config = config or {}
         return self(
             input,
             callbacks=config.get("callbacks"),
             tags=config.get("tags"),
             metadata=config.get("metadata"),
+            run_name=config.get("run_name"),
             **kwargs,
         )
+
+    async def ainvoke(
+        self,
+        input: Dict[str, Any],
+        config: Optional[RunnableConfig] = None,
+        **kwargs: Any,
+    ) -> Dict[str, Any]:
+        if type(self)._acall == Chain._acall:
+            # If the chain does not implement async, fall back to default implementation
+            return await asyncio.get_running_loop().run_in_executor(
+                None, partial(self.invoke, input, config, **kwargs)
+            )
+
+        config = config or {}
+        return await self.acall(
+            input,
+            callbacks=config.get("callbacks"),
+            tags=config.get("tags"),
+            metadata=config.get("metadata"),
+            run_name=config.get("run_name"),
+            **kwargs,
+        )
+
+    memory: Optional[BaseMemory] = None
+    """Optional memory object. Defaults to None.
+    Memory is a class that gets called at the start 
+    and at the end of every chain. At the start, memory loads variables and passes
+    them along in the chain. At the end, it saves any returned variables.
+    There are many different types of memory - please see memory docs 
+    for the full catalog."""
+    callbacks: Callbacks = Field(default=None, exclude=True)
+    """Optional list of callback handlers (or callback manager). Defaults to None.
+    Callback handlers are called throughout the lifecycle of a call to a chain,
+    starting with on_chain_start, ending with on_chain_end or on_chain_error.
+    Each custom chain can optionally call additional callback methods, see Callback docs
+    for full details."""
+    callback_manager: Optional[BaseCallbackManager] = Field(default=None, exclude=True)
+    """Deprecated, use `callbacks` instead."""
+    verbose: bool = Field(default_factory=_get_verbosity)
+    """Whether or not run in verbose mode. In verbose mode, some intermediate logs
+    will be printed to the console. Defaults to `langchain.verbose` value."""
+    tags: Optional[List[str]] = None
+    """Optional list of tags associated with the chain. Defaults to None.
+    These tags will be associated with each call to this chain,
+    and passed as arguments to the handlers defined in `callbacks`.
+    You can use these to eg identify a specific instance of a chain with its use case.
+    """
+    metadata: Optional[Dict[str, Any]] = None
+    """Optional metadata associated with the chain. Defaults to None.
+    This metadata will be associated with each call to this chain,
+    and passed as arguments to the handlers defined in `callbacks`.
+    You can use these to eg identify a specific instance of a chain with its use case.
+    """
 
     class Config:
         """Configuration for this pydantic object."""
@@ -56,7 +113,7 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
     def _chain_type(self) -> str:
         raise NotImplementedError("Saving not supported for this chain type.")
 
-    @root_validator(pre=True)
+    @root_validator()
     def raise_callback_manager_deprecation(cls, values: Dict) -> Dict:
         """Raise deprecation warning if callback_manager is used."""
         if values.get("callback_manager") is not None:
@@ -73,7 +130,7 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
             values["callbacks"] = values.pop("callback_manager", None)
         return values
 
-    #@validator("verbose", pre=True, always=True)
+    @validator("verbose", pre=True, always=True)
     def set_verbose(cls, verbose: Optional[bool]) -> bool:
         """Set the chain verbosity.
 
@@ -109,7 +166,7 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
     def _call(
         self,
         inputs: Dict[str, Any],
-        run_manager = None,
+        run_manager: Optional[CallbackManagerForChainRun] = None,
     ) -> Dict[str, Any]:
         """Execute the chain.
 
@@ -128,14 +185,38 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
                 `Chain.output_keys`.
         """
 
+    async def _acall(
+        self,
+        inputs: Dict[str, Any],
+        run_manager: Optional[AsyncCallbackManagerForChainRun] = None,
+    ) -> Dict[str, Any]:
+        """Asynchronously execute the chain.
+
+        This is a private method that is not user-facing. It is only called within
+            `Chain.acall`, which is the user-facing wrapper method that handles
+            callbacks configuration and some input/output processing.
+
+        Args:
+            inputs: A dict of named inputs to the chain. Assumed to contain all inputs
+                specified in `Chain.input_keys`, including any inputs added by memory.
+            run_manager: The callbacks manager that contains the callback handlers for
+                this run of the chain.
+
+        Returns:
+            A dict of named outputs. Should contain all outputs specified in
+                `Chain.output_keys`.
+        """
+        raise NotImplementedError("Async call not supported for this chain type.")
+
     def __call__(
         self,
         inputs: Union[Dict[str, Any], Any],
         return_only_outputs: bool = False,
-        callbacks = None,
+        callbacks: Callbacks = None,
         *,
         tags: Optional[List[str]] = None,
         metadata: Optional[Dict[str, Any]] = None,
+        run_name: Optional[str] = None,
         include_run_info: bool = False,
     ) -> Dict[str, Any]:
         """Execute the chain.
@@ -177,6 +258,7 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
         run_manager = callback_manager.on_chain_start(
             dumpd(self),
             inputs,
+            name=run_name,
         )
         try:
             outputs = (
@@ -188,6 +270,75 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
             run_manager.on_chain_error(e)
             raise e
         run_manager.on_chain_end(outputs)
+        final_outputs: Dict[str, Any] = self.prep_outputs(
+            inputs, outputs, return_only_outputs
+        )
+        if include_run_info:
+            final_outputs[RUN_KEY] = RunInfo(run_id=run_manager.run_id)
+        return final_outputs
+
+    async def acall(
+        self,
+        inputs: Union[Dict[str, Any], Any],
+        return_only_outputs: bool = False,
+        callbacks: Callbacks = None,
+        *,
+        tags: Optional[List[str]] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+        run_name: Optional[str] = None,
+        include_run_info: bool = False,
+    ) -> Dict[str, Any]:
+        """Asynchronously execute the chain.
+
+        Args:
+            inputs: Dictionary of inputs, or single input if chain expects
+                only one param. Should contain all inputs specified in
+                `Chain.input_keys` except for inputs that will be set by the chain's
+                memory.
+            return_only_outputs: Whether to return only outputs in the
+                response. If True, only new keys generated by this chain will be
+                returned. If False, both input keys and new keys generated by this
+                chain will be returned. Defaults to False.
+            callbacks: Callbacks to use for this chain run. These will be called in
+                addition to callbacks passed to the chain during construction, but only
+                these runtime callbacks will propagate to calls to other objects.
+            tags: List of string tags to pass to all callbacks. These will be passed in
+                addition to tags passed to the chain during construction, but only
+                these runtime tags will propagate to calls to other objects.
+            metadata: Optional metadata associated with the chain. Defaults to None
+            include_run_info: Whether to include run info in the response. Defaults
+                to False.
+
+        Returns:
+            A dict of named outputs. Should contain all outputs specified in
+                `Chain.output_keys`.
+        """
+        inputs = self.prep_inputs(inputs)
+        callback_manager = AsyncCallbackManager.configure(
+            callbacks,
+            self.callbacks,
+            self.verbose,
+            tags,
+            self.tags,
+            metadata,
+            self.metadata,
+        )
+        new_arg_supported = inspect.signature(self._acall).parameters.get("run_manager")
+        run_manager = await callback_manager.on_chain_start(
+            dumpd(self),
+            inputs,
+            name=run_name,
+        )
+        try:
+            outputs = (
+                await self._acall(inputs, run_manager=run_manager)
+                if new_arg_supported
+                else await self._acall(inputs)
+            )
+        except (KeyboardInterrupt, Exception) as e:
+            await run_manager.on_chain_error(e)
+            raise e
+        await run_manager.on_chain_end(outputs)
         final_outputs: Dict[str, Any] = self.prep_outputs(
             inputs, outputs, return_only_outputs
         )
@@ -265,9 +416,9 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
     def run(
         self,
         *args: Any,
-        callbacks = None,
-        tags = None,
-        metadata = None,
+        callbacks: Callbacks = None,
+        tags: Optional[List[str]] = None,
+        metadata: Optional[Dict[str, Any]] = None,
         **kwargs: Any,
     ) -> Any:
         """Convenience method for executing chain.
@@ -335,7 +486,7 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
     async def arun(
         self,
         *args: Any,
-        callbacks = None,
+        callbacks: Callbacks = None,
         tags: Optional[List[str]] = None,
         metadata: Optional[Dict[str, Any]] = None,
         **kwargs: Any,
@@ -464,7 +615,7 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
             raise ValueError(f"{save_path} must be json or yaml")
 
     def apply(
-        self, input_list: List[Dict[str, Any]], callbacks = None
+        self, input_list: List[Dict[str, Any]], callbacks: Callbacks = None
     ) -> List[Dict[str, str]]:
         """Call the chain on all inputs in the list."""
         return [self(inputs, callbacks=callbacks) for inputs in input_list]

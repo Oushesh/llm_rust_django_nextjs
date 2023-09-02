@@ -191,4 +191,41 @@ class BaseCallbackHandler():
         """Whether to ignore chat model callbacks."""
         return False
 
+
+#modifed BaseCallbackHandler from here: https://github.com/langchain-ai/langchain/blob/42582adb66a7b7c95146582e15d56348eb5704b4/libs/langchain/langchain/callbacks/base.py#L245
+class BaseCallbackHandler():
+    """Base callback handler that can be used to handle callbacks from langchain."""
+    raise_error: bool = False
+    run_inline: bool = False
+
+    @property
+    def ignore_llm(self) -> bool:
+        """Whether to ignore LLM callbacks."""
+        return False
+
+    @property
+    def ignore_retry(self) -> bool:
+        """Whether to ignore retry callbacks."""
+        return False
+
+    @property
+    def ignore_chain(self) -> bool:
+        """Whether to ignore chain callbacks."""
+        return False
+
+    @property
+    def ignore_agent(self) -> bool:
+        """Whether to ignore agent callbacks."""
+        return False
+
+    @property
+    def ignore_retriever(self) -> bool:
+        """Whether to ignore retriever callbacks."""
+        return False
+
+    @property
+    def ignore_chat_model(self) -> bool:
+        """Whether to ignore chat model callbacks."""
+        return False
+
 Callbacks = Optional[Union[List[BaseCallbackHandler], BaseCallbackManager]]

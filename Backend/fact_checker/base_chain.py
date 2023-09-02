@@ -1,4 +1,4 @@
-from typing import List, Dict, Any, Optional, Union
+from typing import List, Dict, Any, Optional, Union, Callable
 from abc import ABC,  abstractmethod
 from serializable import Serializable
 from runnable import Runnable
@@ -19,6 +19,8 @@ from callbacks.base import Callbacks
 from schema.messages import BaseMessage
 import uuid
 from uuid import UUID
+
+from callbacks.base import BaseCallbackHandler
 
 class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
     """Abstract base class for creating structured sequences of calls to components.
@@ -59,36 +61,14 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
             **kwargs,
         )
 
+
     memory: Optional[BaseMemory] = None
-    """Optional memory object. Defaults to None.
-    Memory is a class that gets called at the start 
-    and at the end of every chain. At the start, memory loads variables and passes
-    them along in the chain. At the end, it saves any returned variables.
-    There are many different types of memory - please see memory docs 
-    for the full catalog."""
-    callbacks = Field(default=None, exclude=True)
-    """Optional list of callback handlers (or callback manager). Defaults to None.
-    Callback handlers are called throughout the lifecycle of a call to a chain,
-    starting with on_chain_start, ending with on_chain_end or on_chain_error.
-    Each custom chain can optionally call additional callback methods, see Callback docs
-    for full details."""
-    callback_manager = Field(default=None, exclude=True)
-    """Deprecated, use `callbacks` instead."""
+    callbacks: Optional[CallbackManager] = Field(default=None, exclude=True) #made this optional.
     verbose: bool = Field(default_factory=_get_verbosity)
-    """Whether or not run in verbose mode. In verbose mode, some intermediate logs
-    will be printed to the console. Defaults to `langchain.verbose` value."""
+    callbacks: Optional[List[Callable]] = Field(default=None, exclude=True)
     tags: Optional[List[str]] = None
-    """Optional list of tags associated with the chain. Defaults to None.
-    These tags will be associated with each call to this chain,
-    and passed as arguments to the handlers defined in `callbacks`.
-    You can use these to eg identify a specific instance of a chain with its use case.
-    """
     metadata: Optional[Dict[str, Any]] = None
-    """Optional metadata associated with the chain. Defaults to None.
-    This metadata will be associated with each call to this chain,
-    and passed as arguments to the handlers defined in `callbacks`.
-    You can use these to eg identify a specific instance of a chain with its use case.
-    """
+
 
     class Config:
         """Configuration for this pydantic object."""
@@ -615,8 +595,6 @@ class CallbackManagerMixin:
         """Run when tool starts running."""
 
 
-
-
 class BaseCallbackManager(CallbackManagerMixin):
     """Base callback manager that handles callbacks from LangChain."""
 
@@ -695,6 +673,3 @@ class BaseCallbackManager(CallbackManagerMixin):
             self.metadata.pop(key)
             self.inheritable_metadata.pop(key)
 
-
-
-Callbacks = Optional[Union[List[BaseCallbackHandler], BaseCallbackManager]]

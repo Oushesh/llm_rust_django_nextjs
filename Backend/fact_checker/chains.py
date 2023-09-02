@@ -1,18 +1,28 @@
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Any
 from base_chain import Chain
 from pydantic import Extra, root_validator
 
 class SimpleSequentialChain(Chain):
-    """Simple chain where the outputs of one step feed directly into next."""
+    def __init__(self, *, chains=None):
+        self.components = chains
 
-    chains: List[Chain]
-    strip_outputs: bool = False
-    input_key: str = "input"  #: :meta private:
-    output_key: str = "output"  #: :meta private:
+    @property
+    def input_keys(self) -> List[str]:
+        # Assuming the first component dictates the input keys
+        return self.components[0].input_keys
 
-    def __init__(self):
-        self.input_key
-        self.output_key
+    @property
+    def output_keys(self) -> List[str]:
+        # Assuming the last component dictates the output keys
+        return self.components[-1].output_keys
+
+    def _call(self, inputs: Dict[str, Any], run_manager=None) -> Dict[str, Any]:
+        # Implement the logic to call the components in sequence
+        output = inputs
+        for component in self.components:
+            output = component(output)
+        return output
+
 
     class Config:
         """Configuration for this pydantic object."""
@@ -20,7 +30,7 @@ class SimpleSequentialChain(Chain):
         arbitrary_types_allowed = True
 
     @root_validator()
-    def validate_chains(cls, values: Dict):
+    def validate_chains(cls, values: Dict):     #class method: this is called even without instantiating the
         """Validate that chains are all single input/output."""
         value_chain =values.get("chains",{})
         if not value_chain=={}:

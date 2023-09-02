@@ -7,8 +7,8 @@ from typing import List
 class SimpleSequentialChain(Chain):
     chains: List[Chain]
     strip_outputs: bool = False
-    input_keys_alias: str = "input"  #: :meta private:
-    output_key_alias: str = "output"  #: :meta private:
+    _input_keys_alias: str = "input"  #: :meta private:
+    _output_key_alias: str = "output"  #: :meta private:
 
     class Config:
         """Configuration for this pydantic object."""
@@ -17,19 +17,12 @@ class SimpleSequentialChain(Chain):
 
     @property
     def input_keys_alias(self) -> List[str]:
-        """Expect input key.
-
-        :meta private:
-        """
-        return [self.input_keys_alias]
+        return ["my_input_keys"]  # Replace this with your actual logic
 
     @property
     def output_key_alias(self) -> List[str]:
-        """Return output key.
+        return ["my_output_keys"]  # Replace this with your actual logic
 
-        :meta private:
-        """
-        return [self.output_key_alias]
 
     @root_validator(pre=True)
     def validate_chains(cls, values):

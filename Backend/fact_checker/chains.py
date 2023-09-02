@@ -8,7 +8,7 @@ class SimpleSequentialChain(Chain):
     chains: List[Chain]
     strip_outputs: bool = False
     input_key: str = "input"  #: :meta private:
-    output_key: str = "output"  #: :meta private:
+    output_keys: str = "output"  #: :meta private:
 
     class Config:
         """Configuration for this pydantic object."""
@@ -29,7 +29,7 @@ class SimpleSequentialChain(Chain):
 
         :meta private:
         """
-        return [self.output_key]
+        return [self.output_keys]
 
     @root_validator(pre=True)
     def validate_chains(cls, values):

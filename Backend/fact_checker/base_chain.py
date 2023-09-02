@@ -16,13 +16,9 @@ from callbacks.manager import CallbackManager
 
 from callbacks.base import Callbacks
 
-from fact_checker.schema.messages import BaseMessage
-
-
+from schema.messages import BaseMessage
 import uuid
 from uuid import UUID
-
-
 
 class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
     """Abstract base class for creating structured sequences of calls to components.
@@ -55,28 +51,6 @@ class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):
     ) -> Dict[str, Any]:
         config = config or {}
         return self(
-            input,
-            callbacks=config.get("callbacks"),
-            tags=config.get("tags"),
-            metadata=config.get("metadata"),
-            run_name=config.get("run_name"),
-            **kwargs,
-        )
-
-    async def ainvoke(
-        self,
-        input: Dict[str, Any],
-        config: Optional[RunnableConfig] = None,
-        **kwargs: Any,
-    ) -> Dict[str, Any]:
-        if type(self)._acall == Chain._acall:
-            # If the chain does not implement async, fall back to default implementation
-            return await asyncio.get_running_loop().run_in_executor(
-                None, partial(self.invoke, input, config, **kwargs)
-            )
-
-        config = config or {}
-        return await self.acall(
             input,
             callbacks=config.get("callbacks"),
             tags=config.get("tags"),

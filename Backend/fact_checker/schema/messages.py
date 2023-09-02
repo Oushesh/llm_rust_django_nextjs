@@ -1,7 +1,9 @@
-from schema_serializable import Serializable
+from serializable import Serializable
 from pydantic import Field
 from typing import Any, Dict
 from abc import ABC, abstractmethod
+
+
 class BaseMessage(Serializable):
     """The base abstract Message class.
 

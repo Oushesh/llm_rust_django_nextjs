@@ -19,7 +19,6 @@ from callbacks.base import Callbacks
 from schema.messages import BaseMessage
 import uuid
 from uuid import UUID
-
 from callbacks.base import BaseCallbackHandler
 
 class Chain(Serializable, Runnable[Dict[str, Any], Dict[str, Any]], ABC):

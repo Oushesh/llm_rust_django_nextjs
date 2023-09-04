@@ -52,3 +52,7 @@ https://colab.research.google.com/drive/1AXccYmC11kWJ8zZtqS78ZvmBCC7yIPI0#scroll
 
 ## Rust Core:
    * Where to put rust and why?
+
+## Manager: 
+   * Langchain-rs: rust based langchain 
+   * Embeddings: Loaders

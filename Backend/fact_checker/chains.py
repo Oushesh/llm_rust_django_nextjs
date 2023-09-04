@@ -55,4 +55,6 @@ class SimpleSequentialChain(Chain):
         return {self.output_key_alias[0]: output}  # Assuming there's only one output key
 
 
-#Debug this and test the code.
+#Debug this and test the code: remove the input_keys_alias.
+#Debug this and convert part of the code to rust: the one that holds the embeddings.
+#Try to serve this to AWS or cloud services --> check how fast it is.

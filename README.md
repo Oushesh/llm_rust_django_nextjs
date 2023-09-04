@@ -48,11 +48,13 @@ https://colab.research.google.com/drive/1AXccYmC11kWJ8zZtqS78ZvmBCC7yIPI0#scroll
 
     * Big Companies --> Really good customer service.
     * Companies do not have the expertise to find new sales lead. 
-    *   
+       
 
 ## Rust Core:
    * Where to put rust and why?
 
 ## Manager: 
    * Langchain-rs: rust based langchain 
-   * Embeddings: Loaders
+   * Embeddings: Loaders for the documents.
+   *  We can choose: between: LLaMA LLM and OpenAI LLM.
+

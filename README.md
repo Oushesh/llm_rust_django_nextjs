@@ -29,7 +29,7 @@ https://colab.research.google.com/drive/1AXccYmC11kWJ8zZtqS78ZvmBCC7yIPI0#scroll
    * Prove hallucination solved
 
 ## API Endpoints:
-   * 
+   * pass in .pdfs inside: get the embeddings.
 
 ## Pitch on Tech:
    * Rust Backend, end to end solutions. 
@@ -50,11 +50,12 @@ https://colab.research.google.com/drive/1AXccYmC11kWJ8zZtqS78ZvmBCC7yIPI0#scroll
     * Companies do not have the expertise to find new sales lead. 
        
 
-## Rust Core:
-   * Where to put rust and why?
-
 ## Manager: 
    * Langchain-rs: rust based langchain 
    * Embeddings: Loaders for the documents.
-   *  We can choose: between: LLaMA LLM and OpenAI LLM.
+   * LLaMa or OpenAI  
+   * Sequence of OpenAI loaders:
+   * Get the Data with the Embeddings: 
+   * Close Solution: No third party apis from other providers.
+   * 
 

@@ -10,3 +10,5 @@ rust_core/ggml/
 .bin
 .DS_Store
 target/*
+
+ manager/llama2_rs/target/*

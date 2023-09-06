@@ -7,3 +7,5 @@ Backend/ollama_venv/*
 Backend/.DS_Store/*
 Backend/
 rust_core/ggml/
+.bin
+.DS_Store

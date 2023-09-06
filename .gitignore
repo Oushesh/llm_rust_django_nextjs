@@ -9,3 +9,4 @@ Backend/
 rust_core/ggml/
 .bin
 .DS_Store
+target/*

@@ -90,4 +90,13 @@ https://colab.research.google.com/drive/1AXccYmC11kWJ8zZtqS78ZvmBCC7yIPI0#scroll
        get you your best target audience.
 
     -- Now it does not stop here: we help leverage all of your tools in one stop shop 
-       for automation.
+       for automation. 
+    
+    -- video automation for sales: Customer interaction. (similar to parloa).
+    -- get the engagement rate increase
+    -- a lot of integrations (emails, callings, infinite customisation on pipelines)
+       --> lowest level personalised emails, approaches.
+    -- video for instructing videos --> get the automated pipelines 
+    -- set up for them. (show it to customers and test).
+
+

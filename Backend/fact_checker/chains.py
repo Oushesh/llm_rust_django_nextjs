@@ -57,3 +57,5 @@ class SimpleSequentialChain(Chain):
 #Debug this and test the code: remove the input_keys_alias.
 #Debug this and convert part of the code to rust: the one that holds the embeddings.
 #Try to serve this to AWS or cloud services --> check how fast it is. (on the cloud)
+
+## Refactor the code here.

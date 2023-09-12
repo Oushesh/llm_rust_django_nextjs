@@ -1,15 +1,8 @@
 """
 Ninja Django API to collect the
 """
-import os, sys
 from ninja import Router
-
-import glob
-from typing import List
-from multiprocessing import Pool
-from tqdm import tqdm
 import subprocess
-
 router = Router()
 
 #TODO: update to add the argument for model_path
@@ -29,5 +22,4 @@ def StoryTelling(request,input:str):
             yield f"data: {line}\n\n"
         process.stdout.close()
         process.wait()
-
     return StreamingHttpResponse(stream(), content_type="text/event-stream")

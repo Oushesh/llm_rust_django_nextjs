@@ -12,3 +12,5 @@ target/*
 
  manager/llama2_rs/target/*
 *.bin
+
+manager/srush/*

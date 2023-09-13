@@ -79,4 +79,24 @@ https://colab.research.google.com/drive/1AXccYmC11kWJ8zZtqS78ZvmBCC7yIPI0#scroll
 
 ## Sell the Software Even from beforehand (super important) (Door to Door to Companies online)
 
-##  
+##  What makes a great Company?
+    -- enable company 10x operations at 10x cost.
+    -- compelling product.
+    -- compelling customer support --> getOctoai. 
+    -- operations of a given company.
+    -- Focus on Building we help you sell. Sales Intelligence.
+       From propsecting to leadsgen to giving you a Sixth sense
+       which leads are the best. We leverage GenAI and LLM to 
+       get you your best target audience.
+
+    -- Now it does not stop here: we help leverage all of your tools in one stop shop 
+       for automation. 
+    
+    -- video automation for sales: Customer interaction. (similar to parloa).
+    -- get the engagement rate increase
+    -- a lot of integrations (emails, callings, infinite customisation on pipelines)
+       --> lowest level personalised emails, approaches.
+    -- video for instructing videos --> get the automated pipelines 
+    -- set up for them. (show it to customers and test).
+
+    -- How much does the LLM and this process make the process of Robotic automation faster?

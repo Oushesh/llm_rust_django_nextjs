@@ -100,3 +100,7 @@ https://colab.research.google.com/drive/1AXccYmC11kWJ8zZtqS78ZvmBCC7yIPI0#scroll
     -- set up for them. (show it to customers and test).
 
     -- How much does the LLM and this process make the process of Robotic automation faster?
+
+## Build a Frontend for the chatbot in .c (frontend needed)
+   -- Build a normal frontend first. 
+   -- Then Build the frontend with: 

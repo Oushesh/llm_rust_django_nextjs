@@ -11,5 +11,4 @@ rust_core/ggml/
 target/*
 
 manager/llama2_rs/target/*
-
 *.bin

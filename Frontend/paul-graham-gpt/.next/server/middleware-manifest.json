@@ -1,0 +1,43 @@
+{
+  "sortedMiddleware": [],
+  "middleware": {},
+  "functions": {
+    "/api/search": {
+      "env": [
+        "SUPABASE_SERVICE_ROLE_KEY"
+      ],
+      "files": [
+        "server/edge-runtime-webpack.js",
+        "server/pages/api/search.js"
+      ],
+      "name": "pages/api/search",
+      "page": "/api/search",
+      "matchers": [
+        {
+          "regexp": "^/api/search$"
+        }
+      ],
+      "wasm": [],
+      "assets": []
+    },
+    "/api/answer": {
+      "env": [
+        "SUPABASE_SERVICE_ROLE_KEY"
+      ],
+      "files": [
+        "server/edge-runtime-webpack.js",
+        "server/pages/api/answer.js"
+      ],
+      "name": "pages/api/answer",
+      "page": "/api/answer",
+      "matchers": [
+        {
+          "regexp": "^/api/answer$"
+        }
+      ],
+      "wasm": [],
+      "assets": []
+    }
+  },
+  "version": 2
+}

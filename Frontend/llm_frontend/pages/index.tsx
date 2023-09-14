@@ -6,6 +6,8 @@ import { IconArrowRight, IconExternalLink, IconSearch } from "@tabler/icons-reac
 import endent from "endent";
 import Head from "next/head";
 import { KeyboardEvent, useEffect, useRef, useState } from "react";
+import DjangoStream from '../components/DjangoStream';
+
 
 export default function Home() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -134,6 +136,19 @@ export default function Home() {
     inputRef.current?.focus();
   };
 
+  const handleShortStories = async () => {
+    //call the Lilly ShortStories code here:
+
+    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter") {
+        if (mode === "search") {
+          handleSearch();
+        } else {
+          handleAnswer();
+        }
+      }
+    };
+
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       if (mode === "search") {
@@ -249,6 +264,23 @@ export default function Home() {
                     onChange={(e) => setMatchCount(Number(e.target.value))}
                     className="max-w-[400px] block w-full rounded-md border border-gray-300 p-2 text-black shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm"
                   />
+                </div>
+
+                <div className="mt-2">
+                  <div>OpenAI API Key</div>
+                    <input
+                        type="password"
+                        placeholder="OpenAI API Key"
+                        className="max-w-[400px] block w-full rounded-md border border-gray-300 p-2 text-black shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm"
+                        value={apiKey}
+                        onChange={(e) => {
+                          setApiKey(e.target.value);
+
+                          if (e.target.value.length !== 51) {
+                            setShowSettings(true);
+                          }
+                        }}
+                    />
                 </div>
 
                 <div className="mt-2">
@@ -403,6 +435,10 @@ export default function Home() {
             ) : (
               <div className="mt-6 text-center text-lg">{`AI-powered search & chat for Paul Graham's essays.`}</div>
             )}
+            <div>
+              <h1>Streaming from Django</h1>
+                <DjangoStream input={currentInput}/>
+            </div>
           </div>
         </div>
         <Footer />

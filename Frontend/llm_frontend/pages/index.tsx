@@ -6,6 +6,7 @@ import { IconArrowRight, IconExternalLink, IconSearch } from "@tabler/icons-reac
 import endent from "endent";
 import Head from "next/head";
 import { KeyboardEvent, useEffect, useRef, useState } from "react";
+import DjangoStream from '../components/DjangoStream';
 
 export default function Home() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -405,6 +406,10 @@ export default function Home() {
             ) : (
               <div className="mt-6 text-center text-lg">{`AI-powered search & chat for Paul Graham's essays.`}</div>
             )}
+            <div>
+                  <h1>Streaming from Django</h1>
+                   <DjangoStream input="hi Lilly whats up?"/>
+                </div>
           </div>
         </div>
         <Footer />

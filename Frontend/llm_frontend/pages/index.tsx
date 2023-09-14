@@ -8,7 +8,11 @@ import Head from "next/head";
 import { KeyboardEvent, useEffect, useRef, useState } from "react";
 import DjangoStream from '../components/DjangoStream';
 
-export default function Home() {
+// Somewhere at the beginning of your component:
+
+
+export default function Home() 
+{
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [query, setQuery] = useState<string>("");
@@ -21,6 +25,10 @@ export default function Home() {
   const [matchCount, setMatchCount] = useState<number>(5);
   const [apiKey, setApiKey] = useState<string>("");
   const [djangoStreamInput, setDjangoStreamInput] = useState<string>("");
+
+
+// Somewhere at the beginning of your component:
+const [djangoInput, setDjangoInput] = useState("");
   const handleSearch = async () => {
     if (!apiKey) {
       alert("Please enter an API key.");
@@ -135,6 +143,11 @@ export default function Home() {
     inputRef.current?.focus();
   };
 
+  //Handle the click for the form for Lilly Short stories
+  const handleArrowClick = () => {
+    setDjangoInput(query);  // update djangoInput with the value of query
+};
+
 
 
 
@@ -147,15 +160,10 @@ export default function Home() {
       }
     }
   };
-
-  const handleArrowClick = () => {
-    if (mode === "search") {
-        handleSearch();
-    } else {
-        handleAnswer();
-    }
-    // Update the DjangoStream's input
-    setDjangoStreamInput(query);
+  
+  // Your handleArrowClick function should look like:
+const HandleArrowClick = () => {
+    setDjangoInput(query);  // update djangoInput with the value of query
 };
 
   const handleSave = () => {
@@ -417,33 +425,36 @@ export default function Home() {
             ) : (
               <div className="mt-6 text-center text-lg">{`AI-powered search & chat for Paul Graham's essays.`}</div>
             )}
-            <div className="relative w-full mt-4">
-                <IconSearch className="absolute top-3 w-10 left-1 h-6 rounded-full opacity-50 sm:left-3 sm:top-4 sm:h-8" />
 
+              <div className="relative w-full mt-4">
+                <IconSearch
+                    className="absolute top-3 w-10 left-1 h-6 rounded-full opacity-50 sm:left-3 sm:top-4 sm:h-8"/>
                 <input
                     ref={inputRef}
                     className="h-12 w-full rounded-full border border-zinc-600 pr-12 pl-11 focus:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-800 sm:h-16 sm:py-2 sm:pr-16 sm:pl-16 sm:text-lg"
                     type="text"
-                    placeholder="How do I start a startup?"
+                    placeholder="How do I talk to Lily for my bed time short stories?"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    onKeyDown={handleKeyDown}
                 />
 
                 <button>
-                    <IconArrowRight
-                        onClick={handleArrowClick}
-                        className="absolute right-2 top-2.5 h-7 w-7 rounded-full bg-green-500 p-1 hover:cursor-pointer hover:bg-green-600 sm:right-3 sm:top-3 sm:h-10 sm:w-10 text-white"
-                    />
+                  <IconArrowRight
+                    onClick={handleArrowClick}
+                      //onClick={mode === "search" ? handleSearch : handleAnswer} //This one has 2 modes: if mode is search from the button above.
+                      className="absolute right-2 top-2.5 h-7 w-7 rounded-full bg-green-500 p-1 hover:cursor-pointer hover:bg-green-600 sm:right-3 sm:top-3 sm:h-10 sm:w-10 text-white"
+                  />
                 </button>
               </div>
+              {/* This div will only render if there's input for DjangoStream */}
+              {djangoInput && (
+                  <div>
+                      <h1>Streaming from Django</h1>
+                      <DjangoStream input={djangoInput} />
+                  </div>
+              )}
 
-
-            <div>
-                  <h1>Streaming from Django</h1>
-                   <DjangoStream input="hi Lilly whats up?"/>
-                </div>
-          </div>
+            </div>
         </div>
         <Footer />
       </div>

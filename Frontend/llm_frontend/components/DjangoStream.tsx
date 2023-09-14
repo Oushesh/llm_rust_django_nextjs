@@ -48,4 +48,8 @@ const DjangoStream: React.FC<DjangoStreamProps> = ({ input }) => {
   );
 };
 
+<<<<<<< HEAD
 export default DjangoStream;
+=======
+export default DjangoStream;
+>>>>>>> Frontend_Debug

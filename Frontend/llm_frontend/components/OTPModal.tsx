@@ -114,4 +114,8 @@ const onSubmit: SubmitHandler<Inputs> = async (data) => {
       );
     };
 
+<<<<<<< HEAD
 export default OPTModal;
+=======
+export default OPTModal;
+>>>>>>> Frontend_Debug

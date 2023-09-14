@@ -11,8 +11,11 @@ const handler = async (req: Request): Promise<Response> => {
       apiKey: string;
     };
 
+<<<<<<< HEAD
     //Change the code here to get the stream from the backend.
     //const stream = await OpenAIStream(prompt)  //we can add apikey if in the future we want to producticize the things
+=======
+>>>>>>> Frontend_Debug
     const stream = await OpenAIStream(prompt, apiKey);
 
     return new Response(stream);

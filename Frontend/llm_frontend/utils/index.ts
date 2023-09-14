@@ -4,7 +4,10 @@ import { createParser, ParsedEvent, ReconnectInterval } from "eventsource-parser
 
 export const supabaseAdmin = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> Frontend_Debug
 export const OpenAIStream = async (prompt: string, apiKey: string) => {
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
@@ -20,10 +23,14 @@ export const OpenAIStream = async (prompt: string, apiKey: string) => {
       messages: [
         {
           role: "system",
+<<<<<<< HEAD
           content: "You are a helpful assistant that accurately answers queries using Paul Graham's essays. " +
               "Use the text provided to form your answer, but avoid copying word-for-word from the essays. " +
               "Try to use your own words when possible. Keep your answer under 5 sentences. " +
               "Be accurate, helpful, concise, and clear."
+=======
+          content: "You are a helpful assistant that accurately answers queries using Paul Graham's essays. Use the text provided to form your answer, but avoid copying word-for-word from the essays. Try to use your own words when possible. Keep your answer under 5 sentences. Be accurate, helpful, concise, and clear."
+>>>>>>> Frontend_Debug
         },
         {
           role: "user",
@@ -72,6 +79,7 @@ export const OpenAIStream = async (prompt: string, apiKey: string) => {
 
   return stream;
 };
+<<<<<<< HEAD
 
 /*
 export async function OpenAIStream(input: string): Promise<ReadableStream<Uint8Array>> {
@@ -85,3 +93,5 @@ export async function OpenAIStream(input: string): Promise<ReadableStream<Uint8A
 
 
 
+=======
+>>>>>>> Frontend_Debug

@@ -57,7 +57,11 @@ function Login() {
                 throw err;
             }
         }
+<<<<<<< HEAD
     };    
+=======
+    };
+>>>>>>> Frontend_Debug
 
     return (
         <div className="relative flex h-screen w-screen flex-col md:items-center md:justify-center">
@@ -112,7 +116,11 @@ function Login() {
                 >
                     2FactorAuthentication
                 </button>
+<<<<<<< HEAD
                
+=======
+
+>>>>>>> Frontend_Debug
             </form>
             {/*Wrap this component out and finish the 2Factor Model */}
             {showModal &&  <OTP/>}
@@ -121,4 +129,7 @@ function Login() {
 }
 
 export default Login
+<<<<<<< HEAD
 
+=======
+>>>>>>> Frontend_Debug

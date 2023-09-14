@@ -25,4 +25,7 @@ const auth = getAuth()
 export default app
 export { auth, db }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> Frontend_Debug

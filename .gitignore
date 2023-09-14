@@ -12,7 +12,12 @@ target/*
 
 manager/llama2_rs/target/*
 *.bin
+<<<<<<< HEAD
 
 Frontend/llm_frontend/node_modules/*
 Frontend/llm_frontend/.next/*
 Frontend/chatbot-ui/*
+=======
+Frontend/llm_frontend/node_modules
+Frontend/llm_frontend/.next/*
+>>>>>>> Frontend_Debug

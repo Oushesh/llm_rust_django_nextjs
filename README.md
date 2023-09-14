@@ -108,6 +108,14 @@ https://colab.research.google.com/drive/1AXccYmC11kWJ8zZtqS78ZvmBCC7yIPI0#scroll
       then talk the Frontend + Backend together.
    * inspired from --> https://github.com/mckaywrigley/paul-graham-gpt
    * inspired also from chat-UI --> 
+   * npm install recoil
+   * npm install firebase
+   * npm install react-hook-form
+   * https://mui.com/material-ui/react-modal/ --> https://mui.com/material-ui/react-modal/
+   * npm install @mui/material (material mui)
+   * npm install heroicons
+   * npm install react-hot-toast
+   * npm i @heroicons/react@v1
 
 ##  How to pitch the ideas?
     * Speed, trust, reliability and enabling Factor of the company.

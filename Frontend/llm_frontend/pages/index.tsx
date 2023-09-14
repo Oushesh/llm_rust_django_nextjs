@@ -6,7 +6,6 @@ import { IconArrowRight, IconExternalLink, IconSearch } from "@tabler/icons-reac
 import endent from "endent";
 import Head from "next/head";
 import { KeyboardEvent, useEffect, useRef, useState } from "react";
-
 import DjangoStream from '../components/DjangoStream';
 
 export default function Home() {
@@ -22,6 +21,10 @@ export default function Home() {
   const [matchCount, setMatchCount] = useState<number>(5);
   const [apiKey, setApiKey] = useState<string>("");
 
+  const [djangoResults, setDjangoResults] = useState<any | null>(null);
+
+  //const handleSearch, handleAnswer will be used for the Paul Graham
+  //Search and answer part
   const handleSearch = async () => {
     if (!apiKey) {
       alert("Please enter an API key.");
@@ -61,6 +64,7 @@ export default function Home() {
 
     return results;
   };
+
 
   const handleAnswer = async () => {
     if (!apiKey) {
@@ -134,6 +138,15 @@ export default function Home() {
     }
 
     inputRef.current?.focus();
+  };
+
+
+  const handleShortStories = async () =>
+  {
+    //call the Lilly ShortStories code here:
+    const djangoStreamResults = await DjangoStream(query);
+    setDjangoResults(djangoStreamResults);
+
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {

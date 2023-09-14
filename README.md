@@ -116,6 +116,8 @@ https://colab.research.google.com/drive/1AXccYmC11kWJ8zZtqS78ZvmBCC7yIPI0#scroll
    * npm install heroicons
    * npm install react-hot-toast
    * npm i @heroicons/react@v1
+   * yarn add recoil or npm install recoil
+   * yarn add  react-hook-form
 
 ##  How to pitch the ideas?
     * Speed, trust, reliability and enabling Factor of the company.

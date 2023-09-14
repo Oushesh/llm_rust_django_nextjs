@@ -102,6 +102,7 @@ https://colab.research.google.com/drive/1AXccYmC11kWJ8zZtqS78ZvmBCC7yIPI0#scroll
     -- How much does the LLM and this process make the process of Robotic automation faster?
 
 ## Build a Frontend for the chatbot in .c (frontend needed) DONE
+   * Install Firebase App: 
    * Build a normal frontend first: --> Get this Frontend up and working from productivity app. 
    * Then Build the frontend with: chatbot-ui open source
       then talk the Frontend + Backend together.

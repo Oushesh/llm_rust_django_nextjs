@@ -1,28 +1,64 @@
-//Login Page shown before the user puts in the credentials and signs in the app
 import Head from 'next/head'
 import Image from 'next/image'
-import {useRef, useState} from 'react'
-import {useForm, SubmitHandler} from 'react-hook-form'
+import { useRef, useState } from 'react'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import useAuth from '../hooks/useAuth'
-
-import {useRecoilState,useRecoilValue} from 'recoil';
+import OTP from '@/components/OTPModal'
+import {useRecoilState, useRecoilValue} from 'recoil';
 import {modalState,OTPmodalState} from '../atoms/modalAtom'
 import React from 'react';
+
+interface Inputs {
+    email: string
+    password: string
+}
 
 function Login() {
     const [login, setLogin] = useState(false)
     const {signIn,signUp} = useAuth()
 
-    const [showModal,setShowModal] = useRecoilState()
+    const [showModal,setShowModal] = useRecoilState(modalState);
 
     const {
         register,
         handleSubmit,
         watch,
-        formstate: {errors},
-    } = useForm<inpus>()
+        formState: { errors },
+    } = useForm<Inputs>()
 
-    //The JSX Component for the page
+    const onSubmit: SubmitHandler<Inputs> = async (data) => {
+        console.log(data);
+        if (login) {
+            try {
+                await signIn(data.email, data.password);
+            } catch (err:any) {
+                if (err.message === 'OTP_REQUIRED') {
+                    // Show OTP input field
+                    setShowModal(true);
+                } else {
+                    throw err;
+                }
+            }
+        } else {
+            await signUp(data.email, data.password);
+        }
+    };
+
+    //handle OPT
+    const handleOTPSubmit = async (data:any) => {
+        // Retry sign in with the OTP
+        try {
+            await signIn(data.email, data.password);
+        } catch (err: any) {
+            if (err.message === 'OTP_REQUIRED') {
+                // If the OTP is still required, show an error message
+                alert('The OTP is incorrect. Please try again.');
+            } else {
+                throw err;
+            }
+        }
+    };    
+
     return (
         <div className="relative flex h-screen w-screen flex-col md:items-center md:justify-center">
             <Head>
@@ -76,13 +112,13 @@ function Login() {
                 >
                     2FactorAuthentication
                 </button>
-
+               
             </form>
             {/*Wrap this component out and finish the 2Factor Model */}
             {showModal &&  <OTP/>}
         </div>
     )
-
 }
 
 export default Login
+

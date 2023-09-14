@@ -104,3 +104,11 @@ https://colab.research.google.com/drive/1AXccYmC11kWJ8zZtqS78ZvmBCC7yIPI0#scroll
 ## Build a Frontend for the chatbot in .c (frontend needed)
    -- Build a normal frontend first. 
    -- Then Build the frontend with: 
+   
+    * npm install recoil
+    * npm install next@latest @next/font@latest
+    * npm install react-hook-form
+    * npm install react-hot-toast
+    * npm install @heroicons/react@v1
+    * npm install firebase
+

@@ -12,3 +12,5 @@ target/*
 
 manager/llama2_rs/target/*
 *.bin
+Frontend/llm_frontend/node_modules
+Frontend/llm_frontend/.next/*

@@ -22,6 +22,7 @@ export default function Home() {
   const [apiKey, setApiKey] = useState<string>("");
 
   const [djangoResults, setDjangoResults] = useState<any | null>(null);
+const [userInput, setUserInput] = useState("");
 
   //const handleSearch, handleAnswer will be used for the Paul Graham
   //Search and answer part
@@ -141,13 +142,11 @@ export default function Home() {
   };
 
 
-  const handleShortStories = async () =>
-  {
-    //call the Lilly ShortStories code here:
-    const djangoStreamResults = await DjangoStream(query);
-    setDjangoResults(djangoStreamResults);
-
-  };
+  const handleShortStories = async () => {
+  //call the Lilly ShortStories code here:
+  const djangoStreamResults = await DjangoStream(userInput);
+  setDjangoResults(djangoStreamResults);
+};
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -283,6 +282,7 @@ export default function Home() {
                   />
                 </div>
 
+
                 <div className="mt-4 flex space-x-2 justify-center">
                   <div
                     className="flex cursor-pointer items-center space-x-2 rounded-full bg-green-500 px-3 py-1 text-sm text-white hover:bg-green-600"
@@ -304,7 +304,6 @@ export default function Home() {
             {apiKey.length === 51 ? (
               <div className="relative w-full mt-4">
                 <IconSearch className="absolute top-3 w-10 left-1 h-6 rounded-full opacity-50 sm:left-3 sm:top-4 sm:h-8" />
-
                 <input
                   ref={inputRef}
                   className="h-12 w-full rounded-full border border-zinc-600 pr-12 pl-11 focus:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-800 sm:h-16 sm:py-2 sm:pr-16 sm:pl-16 sm:text-lg"
@@ -317,14 +316,17 @@ export default function Home() {
 
                 <button>
                   <IconArrowRight
-                    onClick={mode === "search" ? handleSearch : handleAnswer}
+                    onClick={handleShortStories}
+                    //onClick={mode === "search" ? handleSearch : handleAnswer} //This one has 2 modes: if mode is search from the button above.
                     className="absolute right-2 top-2.5 h-7 w-7 rounded-full bg-blue-500 p-1 hover:cursor-pointer hover:bg-blue-600 sm:right-3 sm:top-3 sm:h-10 sm:w-10 text-white"
                   />
                 </button>
               </div>
+
+
             ) : (
               <div className="text-center font-bold text-3xl mt-7">
-                Please enter your
+                Please enter your Question
                 <a
                   className="mx-2 underline hover:opacity-50"
                   href="https://platform.openai.com/account/api-keys"
@@ -419,12 +421,33 @@ export default function Home() {
               <div className="mt-6 text-center text-lg">{`AI-powered search & chat for Paul Graham's essays.`}</div>
             )}
 
+            <div className="relative w-full mt-4">
+                <IconSearch className="absolute top-3 w-10 left-1 h-6 rounded-full opacity-50 sm:left-3 sm:top-4 sm:h-8" />
+                <input
+                  ref={inputRef}
+                  className="h-12 w-full rounded-full border border-zinc-600 pr-12 pl-11 focus:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-800 sm:h-16 sm:py-2 sm:pr-16 sm:pl-16 sm:text-lg"
+                  type="text"
+                  placeholder="How do I talk to Lily for my bed time short stories?"
+                  value={userInput}
+                  onChange={(e) => setUserInput(e.target.value)}
+                />
+
+                <button>
+                  <IconArrowRight
+                    onClick={handleShortStories}
+                    //onClick={mode === "search" ? handleSearch : handleAnswer} //This one has 2 modes: if mode is search from the button above.
+                    className="absolute right-2 top-2.5 h-7 w-7 rounded-full bg-green-500 p-1 hover:cursor-pointer hover:bg-green-600 sm:right-3 sm:top-3 sm:h-10 sm:w-10 text-white"
+                  />
+                </button>
+              </div>
             <div>
               <h1>Streaming from Django</h1>
-                <DjangoStream input="Hi Lilly. How is it going?" />
-              s</div>
+                <DjangoStream input={userInput}/>
+              </div>
           </div>
+
         </div>
+
         <Footer />
       </div>
     </>

@@ -16,3 +16,5 @@ manager/llama2_rs/target/*
 Frontend/llm_frontend/node_modules
 Frontend/llm_frontend/.next/*
 Backend/manager/llama2_rs
+!Backend/manager/llama2.c/stories15M.bin
+!Backend/manager/llama2.c/tokenizer.bin

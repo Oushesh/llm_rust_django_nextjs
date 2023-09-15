@@ -1,9 +1,10 @@
 Django
-#django-heroku
+django-heroku
 django-ninja
-#django-on-heroku
+django-on-heroku
 openai
 openapi-schema-pydantic
 pre-commit
+psycopg2-binary
 
                  

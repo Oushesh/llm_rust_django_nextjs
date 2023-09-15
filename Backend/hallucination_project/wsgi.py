@@ -14,4 +14,4 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "hallucination_project.settings"
 application = get_wsgi_application()
 
 # This change is done for vercel since vercel has .app name 
-app = application
+#app = application

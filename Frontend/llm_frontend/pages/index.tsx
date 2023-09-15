@@ -447,7 +447,7 @@ const HandleArrowClick = () => {
               </div>
               {/* This div will only render if there's input for DjangoStream */}
               {djangoInput && (
-                  <div>
+                  <div >
                       <h1>Streaming from Django</h1>
                       <DjangoStream input={djangoInput} />
                   </div>

@@ -39,7 +39,7 @@ const DjangoStream: React.FC<DjangoStreamProps> = ({ input }) => {
   }, [input]);
 
   return (
-    <div>
+    <div >
       {error && <div>Error: {error}</div>}
       {lines.map((line, index) => (
         <div key={index}>{line}</div>

@@ -112,3 +112,7 @@ https://colab.research.google.com/drive/1AXccYmC11kWJ8zZtqS78ZvmBCC7yIPI0#scroll
     * npm install @heroicons/react@v1
     * npm install firebase
 
+## Deployment:
+   * Frontend: https://llm-backend-rust.vercel.app/
+   * Backend:   
+

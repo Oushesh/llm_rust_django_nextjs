@@ -220,7 +220,7 @@ const HandleArrowClick = () => {
   return (
     <>
       <Head>
-        <title>Paul Graham GPT</title>
+        <title>LLM Rust AI</title>
         <meta
           name="description"
           content={`AI-powered search and chat for Paul Graham's essays.`}

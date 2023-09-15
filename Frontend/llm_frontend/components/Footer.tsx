@@ -10,16 +10,16 @@ export const Footer: FC = () => {
         Created by
         <a
           className="hover:opacity-50 mx-1"
-          href="https://twitter.com/mckaywrigley"
+          href="https://twitter.com/Oushesh"
           target="_blank"
           rel="noreferrer"
         >
-          Mckay Wrigley
+          Oushesh Haradhun
         </a>
         based on the essays of
         <a
           className="hover:opacity-50 ml-1"
-          href="https://twitter.com/paulg"
+          href="https://twitter.com/oushesh"
           target="_blank"
           rel="noreferrer"
         >
@@ -31,7 +31,7 @@ export const Footer: FC = () => {
       <div className="flex space-x-4">
         <a
           className="flex items-center hover:opacity-50"
-          href="https://twitter.com/mckaywrigley"
+          href="https://twitter.com/oushesh"
           target="_blank"
           rel="noreferrer"
         >
@@ -40,7 +40,7 @@ export const Footer: FC = () => {
 
         <a
           className="flex items-center hover:opacity-50"
-          href="https://github.com/mckaywrigley/paul-graham-gpt"
+          href="https://github.com/oushesh"
           target="_blank"
           rel="noreferrer"
         >

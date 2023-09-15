@@ -2,7 +2,8 @@
     "builds": [
       {
         "src": "hallucination_project/wsgi.py",
-        "use": "@vercel/python"
+        "use": "@vercel/python",
+        "config": {"maxLambdaSize":"250mb","runtime":"python3.10"}
       }
     ],
     "routes": [

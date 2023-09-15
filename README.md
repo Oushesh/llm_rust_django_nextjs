@@ -114,5 +114,5 @@ https://colab.research.google.com/drive/1AXccYmC11kWJ8zZtqS78ZvmBCC7yIPI0#scroll
 
 ## Deployment:
    * Frontend: https://llm-backend-rust.vercel.app/
-   * Backend:   
+   * Backend:  Deyploment of Django on Vercel.json: https://www.youtube.com/watch?v=ZjVzHcXCeMU&t=423s
 

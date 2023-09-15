@@ -915,7 +915,7 @@ int main(int argc, char *argv[]) {
     // default parameters
     char *checkpoint_path = NULL;  // e.g. out/model.bin
 
-    char *tokenizer_path = "/Users/ousheshharadhun/Documents/Workspace/FacebookLLAMA/LLM_Backup/llm_backend_go/Backend/manager/llama2.c/tokenizer.bin";
+    char *tokenizer_path = "/Users/ousheshharadhun/Documents/Workspace/FacebookLLAMA/llm_backend_go/Backend/manager/llama2.c/tokenizer.bin";
     //char *tokenizer_path = "tokenizer.bin";  //eg. Tokenizer.bin
     float temperature = 1.0f;   // 0.0 = greedy deterministic. 1.0 = original. don't set higher
     float topp = 0.9f;          // top-p in nucleus sampling. 1.0 = off. 0.9 works well, but slower

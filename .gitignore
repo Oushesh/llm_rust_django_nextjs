@@ -9,6 +9,7 @@ rust_core/ggml/
 .bin
 .DS_Store
 target/*
+!stories15M.bin
 
 manager/llama2_rs/target/*
 *.bin

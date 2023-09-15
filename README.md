@@ -1,4 +1,7 @@
-# llm_backend_go
+# llm_rust_django_next
+
+
+The folder backend is the same as a different repository owned by me also at: llm_backend_rust_django because of deployment for herok
 This is a test library to build the llm applications on rust for speed. Frontend will be based using NextJS and Backend written in Go, Typescript and python
 Go mostly for the heavy lifting.
 

@@ -43,3 +43,4 @@ openai
 openapi-schema-pydantic
 pre-commit
 prettytable
+pyscopg2                      

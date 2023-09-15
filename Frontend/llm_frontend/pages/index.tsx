@@ -10,7 +10,6 @@ import DjangoStream from '../components/DjangoStream';
 
 // Somewhere at the beginning of your component:
 
-
 export default function Home() 
 {
   const inputRef = useRef<HTMLInputElement>(null);

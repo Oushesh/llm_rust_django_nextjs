@@ -39,7 +39,7 @@ const DjangoStream: React.FC<DjangoStreamProps> = ({ input }) => {
   }, [input]);
 
   return (
-    <div >
+    <div className="bg-slate-400 rounded-lg">
       {error && <div>Error: {error}</div>}
       {lines.map((line, index) => (
         <div key={index}>{line}</div>

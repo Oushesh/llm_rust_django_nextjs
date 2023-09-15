@@ -10,7 +10,6 @@ import DjangoStream from '../components/DjangoStream';
 
 // Somewhere at the beginning of your component:
 
-
 export default function Home() 
 {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -448,7 +447,7 @@ const HandleArrowClick = () => {
               </div>
               {/* This div will only render if there's input for DjangoStream */}
               {djangoInput && (
-                  <div>
+                  <div >
                       <h1>Streaming from Django</h1>
                       <DjangoStream input={djangoInput} />
                   </div>

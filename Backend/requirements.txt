@@ -24,10 +24,10 @@ django-filter
 django-flat-responsive
 django-flat-theme
 django-fsm
-django-heroku
+#django-heroku
 django-ninja
 django-ninja-extra
-django-on-heroku
+#django-on-heroku
 django-pipeline
 django-postgrespool2
 django-redis

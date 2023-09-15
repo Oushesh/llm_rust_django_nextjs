@@ -43,4 +43,5 @@ openai
 openapi-schema-pydantic
 pre-commit
 prettytable
-psycopg2-binary==2.9.4                  
+psycopg-binary
+#psycopg2                  

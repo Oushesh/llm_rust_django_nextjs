@@ -42,7 +42,6 @@ def fact_check(question):
     )
     return overall_chain.run(question)
 
-
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         question = sys.argv[1]
@@ -51,8 +50,3 @@ if __name__ == "__main__":
     print(question)
     answer = fact_check(question)
     print(answer)
-
-## Definitely something we need to work on. Get to Ippen Digital Media and ask them, Materna SE as well.
-## about the interview. (clear the 6 months for PR.)
-
-# Build this code: Rewrite the SimpleSequentialChain,

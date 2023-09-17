@@ -7,9 +7,9 @@ export const Navbar: FC = () => {
       <div className="font-bold text-2xl flex items-center">
         <a
           className="hover:opacity-50"
-          href="https://paul-graham-gpt.vercel.app"
+          href="https://llm-backend-rust.vercel.app/"
         >
-          Paul Graham GPT
+          AI Oracle
         </a>
       </div>
       <div>

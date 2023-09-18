@@ -120,3 +120,12 @@ https://colab.research.google.com/drive/1AXccYmC11kWJ8zZtqS78ZvmBCC7yIPI0#scroll
    * Backend:  Deyploment of Django on Vercel.json: https://www.youtube.com/watch?v=ZjVzHcXCeMU&t=423s
    * Backend: also on heroku:
 
+## Software Pipeline:
+   Draw Software Pipeline.
+
+   Nemo Guardrails + RLHF (strategy).
+   Finish Forto Task and see. (churn prediction)
+
+
+
+

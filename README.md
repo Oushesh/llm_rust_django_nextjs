@@ -16,7 +16,6 @@
    * NextJS 14, Edge run time 
    * React hooks, atoms for react state management, heroicons 
 
-
 ## Frontend 
    vercel deployment
     
@@ -31,8 +30,14 @@
 
 ## Backend Deployment: 
    * https://github.com/Oushesh/llm_rust_django_backend
+     deployed at: 
 
 
+## Vector Database:
+    supabase for vectordatabase.
+    URL: https://supabase.com/dashboard/project/ercgogxayitasvdgypop/editor/28676
+
+    The data are encoded: 
 
 ## How it looks?
 

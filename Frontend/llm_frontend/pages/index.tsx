@@ -7,6 +7,7 @@ import endent from "endent";
 import Head from "next/head";
 import { KeyboardEvent, useEffect, useRef, useState } from "react";
 import DjangoStream from "@/components/DjangoStream";
+import NemoGuardrailStream  from "@/components/nemo_guardrail_stream";
 
 export default function Home() {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -22,6 +23,10 @@ export default function Home() {
     const [apiKey, setApiKey] = useState<string>("");
     // Somewhere at the beginning of your component:
     const [djangoInput, setDjangoInput] = useState("");
+    
+    // Somewhere at the beginning of the Input Format.
+    const [controversialInput, setControversialInput] = useState("");
+
     const handleSearch = async () => {
         if (!apiKey) {
             alert("Please enter an API key.");
@@ -150,6 +155,11 @@ export default function Home() {
     const HandleArrowClick = () => {
         setDjangoInput(query);  // update djangoInput with the value of query
     };
+
+    // Handle for input field for controversial nemo guardrail function
+    const HandleNemoGuardRail = () => {
+        setControversialInput(query);
+    }
 
     const handleSave = () => {
         if (apiKey.length !== 51) {
@@ -431,6 +441,37 @@ export default function Home() {
                                 />
                             </button>
                         </div>
+
+                        <div className="relative w-full mt-4">
+                            <IconSearch
+                                className="absolute top-3 w-10 left-1 h-6 rounded-full opacity-50 sm:left-3 sm:top-4 sm:h-8"/>
+                            <input
+                                ref={inputRef}
+                                className="h-12 w-full rounded-full border border-zinc-600 pr-12 pl-11 focus:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-800 sm:h-16 sm:py-2 sm:pr-16 sm:pl-16 sm:text-lg text-black"
+                                type="text"
+                                placeholder="A controversial take on US Elections"
+                                value={query}
+                                onChange={(e) => setQuery(e.target.value)}
+                            />
+
+                            <button>
+                                <IconArrowRight
+                                    onClick={HandleNemoGuardRail}
+                                    //onClick={mode === "search" ? handleSearch : handleAnswer} //This one has 2 modes: if mode is search from the button above.
+                                    className="absolute right-2 top-2.5 h-7 w-7 rounded-full bg-red-500 p-1 hover:cursor-pointer hover:bg-green-600 sm:right-3 sm:top-3 sm:h-10 sm:w-10 text-white"
+                                />
+                            </button>
+                        </div>
+
+                        {/* This div will only render if theres input for controversialInputStream*/
+                            controversialInput && (
+                                <div>
+                                    <h1> Chatbot with Nemo Guardrails</h1>
+                                    <NemoGuardrailStream input={controversialInput}/>
+                                </div>
+                            )
+                        }
+
                         {/* This div will only render if there's input for DjangoStream */}
                         {djangoInput && (
                             <div >
